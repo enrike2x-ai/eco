@@ -1,0 +1,636 @@
+<title>Auditoría del Proceso de Comisiones — CableGo / Econocable</title>
+<style>
+:root{
+  --bg:#F3F5F6;
+  --bg-raised:#FFFFFF;
+  --ink:#182126;
+  --ink-soft:#4B565D;
+  --ink-faint:#7A848B;
+  --line:#D7DDE0;
+  --line-strong:#B7C0C4;
+  --accent:#0B646C;
+  --accent-strong:#074E54;
+  --accent-tint:#E1F0EF;
+  --crit:#A32A20;
+  --crit-tint:#F8E3E0;
+  --high:#9C5A0E;
+  --high-tint:#F6E7D3;
+  --med:#8A7311;
+  --med-tint:#F3EED0;
+  --low:#3C6B49;
+  --low-tint:#E1EEE3;
+  --mono:"Cascadia Code","SF Mono",Consolas,Menlo,monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#10151A;
+    --bg-raised:#161D23;
+    --ink:#E7ECEF;
+    --ink-soft:#AFBAC0;
+    --ink-faint:#7C8890;
+    --line:#2A343B;
+    --line-strong:#3A464E;
+    --accent:#4FC2C9;
+    --accent-strong:#7DDAE0;
+    --accent-tint:#122A2B;
+    --crit:#E2685A;
+    --crit-tint:#301917;
+    --high:#E0A759;
+    --high-tint:#302512;
+    --med:#D3BE5D;
+    --med-tint:#2D2811;
+    --low:#7FBF93;
+    --low-tint:#16261B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151A; --bg-raised:#161D23; --ink:#E7ECEF; --ink-soft:#AFBAC0; --ink-faint:#7C8890;
+  --line:#2A343B; --line-strong:#3A464E; --accent:#4FC2C9; --accent-strong:#7DDAE0; --accent-tint:#122A2B;
+  --crit:#E2685A; --crit-tint:#301917; --high:#E0A759; --high-tint:#302512; --med:#D3BE5D; --med-tint:#2D2811;
+  --low:#7FBF93; --low-tint:#16261B;
+}
+:root[data-theme="light"]{
+  --bg:#F3F5F6; --bg-raised:#FFFFFF; --ink:#182126; --ink-soft:#4B565D; --ink-faint:#7A848B;
+  --line:#D7DDE0; --line-strong:#B7C0C4; --accent:#0B646C; --accent-strong:#074E54; --accent-tint:#E1F0EF;
+  --crit:#A32A20; --crit-tint:#F8E3E0; --high:#9C5A0E; --high-tint:#F6E7D3; --med:#8A7311; --med-tint:#F3EED0;
+  --low:#3C6B49; --low-tint:#E1EEE3;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent-tint);color:var(--accent-strong);}
+
+a{color:var(--accent-strong);}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;text-wrap:balance;color:var(--ink);}
+p{max-width:70ch;}
+.wide p{max-width:none;}
+
+/* ---------- layout shell ---------- */
+.shell{display:grid;grid-template-columns:272px minmax(0,1fr);gap:0;max-width:1320px;margin:0 auto;}
+@media (max-width:900px){.shell{grid-template-columns:1fr;}}
+
+.rail{
+  position:sticky;top:0;align-self:start;height:100vh;
+  border-right:1px solid var(--line);
+  padding:28px 20px 28px 28px;
+  overflow-y:auto;
+}
+@media (max-width:900px){.rail{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);}}
+
+.rail-mark{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--line-strong);border-radius:3px;
+  display:inline-block;padding:3px 7px;margin-bottom:14px;
+}
+.rail h1{font-size:19px;line-height:1.28;margin:0 0 4px;}
+.rail .sub{font-size:12.5px;color:var(--ink-faint);margin:0 0 22px;font-family:var(--mono);}
+.toc{list-style:none;margin:0;padding:0;font-size:13.5px;}
+.toc li{margin:0;}
+.toc a{
+  display:flex;gap:10px;padding:7px 8px;border-radius:4px;color:var(--ink-soft);
+  text-decoration:none;border-left:2px solid transparent;
+}
+.toc a:hover{background:var(--accent-tint);color:var(--accent-strong);}
+.toc .n{font-family:var(--mono);color:var(--ink-faint);min-width:1.4em;}
+.toc-group{margin-top:16px;padding-top:10px;border-top:1px solid var(--line);}
+.toc-group:first-child{margin-top:0;padding-top:0;border-top:none;}
+
+main{padding:44px 48px 120px;min-width:0;}
+@media (max-width:900px){main{padding:32px 20px 90px;}}
+
+.cover{margin-bottom:56px;padding-bottom:36px;border-bottom:1px solid var(--line-strong);}
+.cover .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.cover h1{font-size:clamp(28px,3.4vw,40px);margin:0 0 14px;max-width:22ch;}
+.cover .dek{font-size:17px;color:var(--ink-soft);max-width:62ch;margin:0 0 28px;}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;max-width:760px;}
+.meta-grid dt{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin:0 0 3px;}
+.meta-grid dd{margin:0;font-size:14.5px;}
+
+section{margin:0 0 64px;scroll-margin-top:24px;}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;}
+.sec-num{font-family:var(--mono);font-size:14px;color:var(--accent);border:1px solid var(--line-strong);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex:none;}
+.sec-head h2{font-size:26px;margin:0;}
+
+.callout{
+  background:var(--accent-tint);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:2px;padding:18px 20px;margin:20px 0;font-size:15px;
+}
+.callout p{margin:0;max-width:none;}
+.callout .lbl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-strong);display:block;margin-bottom:6px;}
+
+.finding{
+  border:1px solid var(--line-strong);border-radius:3px;padding:20px 22px;margin:22px 0;background:var(--bg-raised);
+}
+.finding .lbl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--crit);display:block;margin-bottom:8px;}
+.finding pre{margin:12px 0 0;}
+
+/* exhibit wrapper for anything wide: tables, code, diagrams */
+.exhibit{margin:26px 0;}
+.exhibit-cap{
+  font-family:var(--mono);font-size:12px;color:var(--ink-faint);margin-bottom:8px;
+  display:flex;gap:8px;align-items:baseline;
+}
+.exhibit-cap b{color:var(--ink-soft);font-weight:600;}
+.exhibit-body{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--bg-raised);}
+
+table{border-collapse:collapse;width:100%;font-size:13.6px;min-width:560px;}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+thead th{
+  font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-faint);border-bottom:1px solid var(--line-strong);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--accent-tint);}
+td.num,th.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;}
+
+.chip{
+  display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;padding:2.5px 8px;border-radius:99px;white-space:nowrap;
+}
+.chip.crit{background:var(--crit-tint);color:var(--crit);}
+.chip.high{background:var(--high-tint);color:var(--high);}
+.chip.med{background:var(--med-tint);color:var(--med);}
+.chip.low{background:var(--low-tint);color:var(--low);}
+
+pre{
+  font-family:var(--mono);font-size:13px;line-height:1.55;margin:0;padding:18px 20px;
+  overflow-x:auto;white-space:pre;color:var(--ink);
+}
+code{font-family:var(--mono);font-size:.92em;background:var(--accent-tint);color:var(--accent-strong);padding:1.5px 5px;border-radius:3px;}
+pre code{background:none;color:inherit;padding:0;}
+.exhibit-body pre{border:none;}
+.sql-tag{position:absolute;}
+
+ul.checklist{list-style:none;margin:0;padding:0;display:grid;gap:0;}
+ul.checklist li{
+  display:grid;grid-template-columns:22px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px;
+}
+ul.checklist li:last-child{border-bottom:none;}
+ul.checklist li b{display:block;color:var(--ink);}
+ul.checklist li span.d{color:var(--ink-soft);font-size:13.5px;}
+ul.checklist .mk{font-family:var(--mono);color:var(--accent);}
+
+ol.rules{margin:0;padding:0;list-style:none;counter-reset:rule;display:grid;gap:14px;}
+ol.rules li{counter-increment:rule;padding-left:38px;position:relative;font-size:15px;}
+ol.rules li::before{
+  content:"R"counter(rule);position:absolute;left:0;top:.05em;font-family:var(--mono);font-size:11px;
+  color:var(--accent);border:1px solid var(--line-strong);border-radius:3px;padding:2px 5px;
+}
+
+.priority-block{border-left:3px solid var(--crit);padding-left:20px;margin:0 0 30px;}
+.priority-block.high{border-left-color:var(--high);}
+.priority-block.med{border-left-color:var(--med);}
+.priority-block.low{border-left-color:var(--low);}
+.priority-block h3{font-size:17px;margin:0 0 4px;display:flex;align-items:center;gap:10px;}
+.priority-block .impact{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);margin:0 0 12px;}
+.priority-block .item{margin:0 0 14px;}
+.priority-block .item p{margin:4px 0 0;font-size:14px;color:var(--ink-soft);}
+.priority-block .item .t{font-weight:600;font-size:14.5px;}
+
+.mermaid{background:var(--bg-raised);}
+
+footer{border-top:1px solid var(--line-strong);padding-top:24px;margin-top:70px;font-size:12.5px;color:var(--ink-faint);}
+footer p{max-width:none;}
+
+.kv-inline{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);}
+.kv-inline b{color:var(--ink-soft);font-weight:600;}
+
+@media (prefers-reduced-motion:no-preference){
+  .toc a{transition:background .12s ease,color .12s ease;}
+}
+</style>
+
+<div class="shell">
+  <nav class="rail">
+    <span class="rail-mark">Informe de auditoría</span>
+    <h1>Comisiones comerciales</h1>
+    <p class="sub">CableGo · Econocable — 2024&ndash;2026</p>
+    <ul class="toc">
+      <li><a href="#resumen"><span class="n">00</span> Resumen ejecutivo</a></li>
+      <li class="toc-group"></li>
+      <li><a href="#flujo"><span class="n">01</span> Flujo actual del proceso</a></li>
+      <li><a href="#riesgos"><span class="n">02</span> Riesgos identificados</a></li>
+      <li><a href="#validaciones"><span class="n">03</span> Validaciones requeridas</a></li>
+      <li><a href="#casos-borde"><span class="n">04</span> Casos borde</a></li>
+      <li class="toc-group"></li>
+      <li><a href="#diseno"><span class="n">05</span> Diseño correcto del proceso</a></li>
+      <li><a href="#estados"><span class="n">06</span> Modelo de estados</a></li>
+      <li><a href="#reglas"><span class="n">07</span> Reglas de negocio</a></li>
+      <li class="toc-group"></li>
+      <li><a href="#auditoria"><span class="n">08</span> Trazabilidad y auditoría</a></li>
+      <li><a href="#sql"><span class="n">09</span> Consultas de detección</a></li>
+      <li><a href="#recomendaciones"><span class="n">10</span> Recomendaciones priorizadas</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="cover">
+      <div class="kicker">Auditoría de procesos &amp; base de datos — hallazgos técnicos</div>
+      <h1>El sistema paga comisión antes de saber si el cliente pagó</h1>
+      <p class="dek">Revisión del motor de liquidación de comisiones comerciales sobre el esquema real de producción (SQL Server, ~2,000 tablas, dominio CableGo/Econocable), incluyendo lectura directa de los procedimientos almacenados que generan la comisión.</p>
+      <dl class="meta-grid">
+        <div><dt>Alcance</dt><dd>Comisiones comerciales, 2024–2026</dd></div>
+        <div><dt>Fuente</dt><dd>Base de datos de producción (solo lectura)</dd></div>
+        <div><dt>Objetos clave</dt><dd>OrdenServicio, Factura, ComprobantePago, NotaCredito, DataVendedorComision</dd></div>
+        <div><dt>Procedimiento auditado</dt><dd>usp_DataVendedorComisionInsertarCampo_gl</dd></div>
+      </dl>
+    </div>
+
+    <section id="resumen">
+      <div class="sec-head"><span class="sec-num">00</span><h2>Resumen ejecutivo</h2></div>
+      <p>El diagnóstico que usted describe está confirmado en el código real del sistema, no solo en el síntoma reportado. Se inspeccionó el procedimiento <code>usp_DataVendedorComisionInsertarCampo_gl</code> — el que puebla <code>DataVendedorComision</code> / <code>DetDataVendedorComision</code>, origen de la liquidación mensual — y su lógica de selección de "ventas activas" no contiene <b>ninguna referencia</b> a <code>Factura</code>, <code>ComprobantePago</code> ni <code>NotaCredito</code>. La comisión se calcula exclusivamente sobre:</p>
+      <ul>
+        <li><code>OrdenServicio.EstOS = '003'</code> (orden ejecutada) y <code>FechaEjecucion</code> dentro del mes anterior al cálculo,</li>
+        <li><code>AbonadoServicio.Estado = '002'</code> (servicio activo) a fin de ese mes,</li>
+        <li>ausencia de "cortes" registrados en el período, vía <code>fnc_GetCantCortes_Periodo_Comisiones</code>.</li>
+      </ul>
+      <p>Es decir: el sistema verifica que el <b>servicio técnico</b> siga activo, pero nunca verifica que la <b>factura</b> generada por esa venta haya sido efectivamente pagada. Esto coincide exactamente con el problema planteado y explica por qué comisiones se liquidan sobre ventas que luego no se pagan, se anulan, entran en mora o reciben nota de crédito: para el motor de comisiones, esos eventos son invisibles hasta que — si acaso — el cliente es cortado por falta de pago, lo cual ocurre muchas semanas después (los parámetros de mora del propio sistema, dominio <code>016</code>, contemplan días de antigüedad de corte muy superiores al ciclo de liquidación de un mes).</p>
+      <div class="callout">
+        <span class="lbl">Hallazgo estructural adicional</span>
+        <p>No existe llave foránea entre las tablas de comisión (<code>DataVendedorComision</code>/<code>DetDataVendedorComision</code>) y la venta, la orden de servicio o la factura de origen. La comisión se agrega por vendedor + período, sin conservar el detalle de qué orden de servicio o qué factura la generó. Esto significa que hoy, técnicamente, <b>no es posible auditar con precisión de fila</b> qué comisión corresponde a qué venta — solo totales agregados por vendedor y mes. Cualquier reversión posterior debe reconstruirse por inferencia (abonado + tarifa + período), no por trazabilidad directa.</p>
+      </div>
+      <p>Este informe cubre, en el orden solicitado: el flujo actual, los riesgos, las validaciones faltantes, los casos borde, el diseño correcto del proceso con su modelo de estados y reglas de negocio, el plan de auditoría/trazabilidad, consultas SQL de detección adaptadas al esquema real, y recomendaciones priorizadas por impacto económico.</p>
+    </section>
+
+    <section id="flujo">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Flujo completo del proceso actual</h2></div>
+      <p>Reconstruido a partir del esquema y de la lógica real de <code>usp_DataVendedorComisionInsertarCampo_gl</code> (existen variantes casi idénticas para canal de campo, call center y esquema personalizado — ver <a href="#riesgos">R-08</a>).</p>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 1</b> — flujo as-is: la comisión y el cobro corren en dos rieles que nunca se cruzan</div>
+        <div class="exhibit-body">
+<pre class="mermaid">
+flowchart TD
+    A["Vendedor capta venta<br/>OrdenServicio.TipoOS = 001"] --> B["Instalación técnica<br/>OrdenServicio.EstOS pasa a 003 (ejecutada)<br/>FechaEjecucion = hoy"]
+    B --> C{"¿Fin de mes calendario?"}
+    C -- no --> C
+    C -- si --> D["usp_DataVendedorComisionInsertarCampo_gl<br/>agrupa OS ejecutadas del mes anterior<br/>por vendedor + valla + clase de servicio"]
+    D --> E["Filtra: AbonadoServicio.Estado = 002<br/>y sin cortes en el período"]
+    E --> F["INSERT DataVendedorComision /<br/>DetDataVendedorComision<br/>ImporteVentasActivasComision"]
+    F --> G["Pago al vendedor<br/>(50% el mes siguiente a la venta)"]
+
+    B -.-> H["Facturacion genera Factura<br/>Factura.FechaEmision"]
+    H -.-> I{"¿Cliente paga?<br/>Factura.FechaPago"}
+    I -. "no paga" .-> J["Acumula mora<br/>Abonado.EstadoCartera"]
+    J -.-> K["Días de mora superan umbral<br/>(parametros dominio 016)"]
+    K -.-> L["Corte por falta de pago<br/>MotivoCorte = 906/001"]
+    I -. "nota de credito / anulacion" .-> M["NotaCreditoFactura<br/>Factura.IndAnulado = 1"]
+
+    G -. "sin conexion de vuelta" .-x J
+    G -. "sin conexion de vuelta" .-x M
+    L -. "demasiado tarde:<br/>ya se pagó la comisión" .-x G
+
+    classDef gap stroke:#A32A20,stroke-width:2px,stroke-dasharray:4 3;
+    class J,K,L,M gap;
+</pre>
+        </div>
+      </div>
+
+      <h3>Paso a paso</h3>
+      <ol class="rules">
+        <li><b>Nace la venta.</b> Un vendedor de campo, call center o canal personalizado registra una orden de servicio de alta (<code>OrdenServicio.TipoOS='001'</code>), asociada a <code>IdVendedorReinstalacion</code> y a una <code>ClaseServicio</code> (cable, internet, adicionales). El abonado queda enlazado en <code>Abonado.idVendedor</code>.</li>
+        <li><b>Se ejecuta técnicamente.</b> Cuando la instalación se completa, <code>EstOS</code> cambia a <code>003</code> y se registra <code>FechaEjecucion</code>. Este es, en la práctica, el evento que el sistema trata como "la venta" a efectos de comisión — no la firma del contrato ni el pago.</li>
+        <li><b>Se genera la factura</b> del servicio de forma independiente, en el ciclo de facturación del abonado (<code>Factura</code>, con <code>FechaEmision</code>, <code>FechaCorte</code>, saldo, IGV). Este proceso no tiene relación funcional en el motor de comisiones.</li>
+        <li><b>Se liquida la comisión el mes calendario siguiente</b> a la ejecución, vía procedimiento almacenado que corre por vendedor (aparentemente de forma manual o semi-manual — el propio código trae llamadas <code>EXEC</code> comentadas para pruebas puntuales, sin evidencia de un job/scheduler transaccional con control de reintento).</li>
+        <li><b>Debería pagarse</b> solo cuando el cobro de esa factura esté confirmado y consolidado (sin reversas dentro de la ventana de reclamo). Hoy se paga aunque la factura ni siquiera haya sido emitida todavía.</li>
+        <li><b>Eventos que deberían modificar la comisión</b> y hoy no la tocan: anulación de <code>Factura</code> (<code>IndAnulado</code>), nota de crédito (<code>NotaCredito</code> / <code>NotaCreditoFactura</code>), cambio de <code>Abonado.EstadoCartera</code> a mora, baja del servicio, corte por falta de pago, corrección manual de la orden de servicio.</li>
+      </ol>
+    </section>
+
+    <section id="riesgos">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Riesgos del proceso actual</h2></div>
+      <p>Ordenados por severidad. La columna "Evidencia" cita el objeto real de base de datos que sustenta el riesgo, cuando aplica.</p>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 2</b> — matriz de riesgos</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Ref.</th><th>Severidad</th><th>Riesgo</th><th>Mecanismo</th><th>Evidencia</th></tr></thead>
+          <tbody>
+            <tr><td>R-01</td><td><span class="chip crit">Crítico</span></td><td>Fraude por venta ficticia</td><td>Un vendedor (o un cómplice de instalación) marca <code>EstOS=003</code> sobre una orden inexistente o no consentida por el cliente; cobra comisión antes de que nadie note que no hay factura pagada detrás.</td><td><code>OrdenServicio.EstOS</code> sin corroboración de facturación</td></tr>
+            <tr><td>R-02</td><td><span class="chip crit">Crítico</span></td><td>Comisión sobre venta jamás pagada</td><td>Cliente nunca paga la primera factura; el corte por mora tarda más que el ciclo de comisión (parámros de mora, dominio 016) → la comisión ya salió.</td><td>Sin JOIN a <code>Factura</code>/<code>ComprobantePago</code> en <code>usp_DataVendedorComisionInsertarCampo_gl</code></td></tr>
+            <tr><td>R-03</td><td><span class="chip crit">Crítico</span></td><td>Comisión sobre venta anulada</td><td><code>Factura.IndAnulado=1</code> o <code>NotaCredito</code> emitida después del pago de comisión no generan reversa ni alerta.</td><td>No hay trigger ni proceso de reversión detectado sobre <code>DetDataVendedorComision</code></td></tr>
+            <tr><td>R-04</td><td><span class="chip crit">Crítico</span></td><td>Pérdida económica directa y recurrente</td><td>Cada venta que cae en cualquiera de los casos anteriores es una comisión pagada sin contrapartida de ingreso — pérdida no recuperable si no hay mecanismo de descuento en planillas futuras.</td><td>Ausencia de tabla de "comisión a descontar / recuperar"</td></tr>
+            <tr><td>R-05</td><td><span class="chip high">Alto</span></td><td>Incentivos mal alineados</td><td>El vendedor es recompensado por volumen de instalación, no por calidad de cartera. Incentiva vender a clientes de alto riesgo de impago para maximizar comisión de corto plazo.</td><td><code>ImporteVentasActivasComision</code> depende solo de conteo/monto de OS activas</td></tr>
+            <tr><td>R-06</td><td><span class="chip high">Alto</span></td><td>Pagos duplicados</td><td>No se observó restricción única (constraint / upsert) sobre <code>(idVendedor, Periodo, idDetValla)</code> en <code>DataVendedorComision</code>; si el procedimiento se ejecuta dos veces para el mismo vendedor/período, no hay barrera visible que impida doble inserción.</td><td><code>usp_DataVendedorComisionInsertarCampo_gl</code> hace INSERT puro, sin `MERGE`/verificación previa</td></tr>
+            <tr><td>R-07</td><td><span class="chip high">Alto</span></td><td>Trazabilidad rota (auditoría imposible a nivel de fila)</td><td>La comisión se agrega por vendedor+período+valla; no conserva <code>IdOS</code> ni <code>IdFactura</code> de origen. No se puede responder "¿qué venta pagó esta comisión?" con una consulta directa.</td><td><code>DetDataVendedorComision</code> no tiene columna de referencia a <code>OrdenServicio</code>/<code>Factura</code></td></tr>
+            <tr><td>R-08</td><td><span class="chip high">Alto</span></td><td>Lógica de negocio duplicada y divergente</td><td>Existen variantes casi idénticas del cálculo (<code>...Campo_gl</code>, <code>...CallCenter_gl</code>, <code>...Personalizado_gl</code>, y copias con sufijo <code>XXX</code> que sugieren versiones de prueba en producción). Un cambio de regla aplicado en una variante y olvidado en otra genera inconsistencia entre canales.</td><td><code>INFORMATION_SCHEMA.ROUTINES</code> — 4+ procedimientos <code>usp_DataVendedorComisionInsertar*</code></td></tr>
+            <tr><td>R-09</td><td><span class="chip high">Alto</span></td><td>Manipulación de fecha de ejecución</td><td>Si un usuario interno puede editar <code>FechaEjecucion</code> u <code>OrdenServicio.EstOS</code> manualmente (soporte, backoffice), puede adelantar o repetir el ingreso de una venta al ciclo de comisión.</td><td><code>IdUsuarioMod</code>/<code>FechaUltMod</code> existen pero sin evidencia de log inmutable separado</td></tr>
+            <tr><td>R-10</td><td><span class="chip med">Medio</span></td><td>Clientes suspendidos que igual comisionan</td><td>La exclusión solo opera si hubo "corte" contado por <code>fnc_GetCantCortes_Periodo_Comisiones</code> dentro del mismo mes de ejecución; una suspensión decretada el mes siguiente no revierte nada.</td><td>Ventana de verificación limitada a un mes calendario</td></tr>
+            <tr><td>R-11</td><td><span class="chip med">Medio</span></td><td>Pagos parciales tratados como pago completo</td><td>No se detectó verificación de <code>Factura.PagoCuenta</code> vs. <code>TotalBruto</code>; un abono parcial no reduce proporcionalmente la comisión.</td><td>Campos <code>PagoCuenta</code>, <code>SaldoAnterior</code>, <code>ImporteProxPagos</code> no referenciados en el cálculo</td></tr>
+            <tr><td>R-12</td><td><span class="chip med">Medio</span></td><td>Refinanciamiento o acuerdo de pago sin ajuste</td><td><code>Factura.ImporteRefinanciado</code> / <code>ImporteAcuerdoPago</code> reestructuran la deuda; el motor de comisión no los conoce.</td><td>Mismo — no referenciados</td></tr>
+            <tr><td>R-13</td><td><span class="chip med">Medio</span></td><td>Cambio de vendedor no reasigna comisión pendiente</td><td>Si <code>Abonado.idVendedor</code> cambia (traspaso de cartera) después de comisionar la venta original, no hay regla visible de prorrateo o reasignación.</td><td><code>Abonado.idVendedor</code> es mutable, sin historial versionado adjunto</td></tr>
+            <tr><td>R-14</td><td><span class="chip med">Medio</span></td><td>Reactivaciones cuentan como venta nueva</td><td>La función <code>fnc_GetIndicadorFechaReconexionComisionCampo</code> sí contempla reconexión, pero solo dentro de la ventana del mes evaluado — una reactivación tardía puede generar doble comisión sobre el mismo abonado.</td><td>Lógica de reconexión acoplada al mismo mes de cálculo</td></tr>
+            <tr><td>R-15</td><td><span class="chip low">Bajo</span></td><td>Errores de digitación en tarifa o clase de servicio</td><td>El importe comisionable sale directo de <code>ImportePlanInicial</code>/<code>ImporteSegundoPlan</code> capturado en la OS; un error de tipeo en el plan infla o reduce la comisión sin validación cruzada contra el tarifario (<code>AbonadoTarifa</code>).</td><td>Sin validación cruzada visible contra tarifario vigente</td></tr>
+            <tr><td>R-16</td><td><span class="chip low">Bajo</span></td><td>Errores contables en el cierre</td><td>Al no reconciliarse comisión pagada vs. ingreso realmente cobrado, el costo de ventas queda sistemáticamente subestimado o mal distribuido por período contable.</td><td>Consecuencia agregada de R-02/R-04</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="validaciones">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Validaciones que el sistema debería aplicar antes de pagar una comisión</h2></div>
+      <p>Cada validación referencia el campo real que hoy existe en el esquema y que el motor de comisión podría (y debería) consultar.</p>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 3</b> — checklist de validaciones pre-pago</div>
+        <div class="exhibit-body" style="padding:4px 22px;">
+        <ul class="checklist">
+          <li><span class="mk">✓</span><div><b>Factura emitida y correspondiente a la venta</b><span class="d"> — existe <code>Factura</code> con <code>idAbonado</code> y período coherentes con la <code>OrdenServicio</code> comisionada.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Factura efectivamente pagada</b><span class="d"> — <code>Factura.FechaPago IS NOT NULL</code> y <code>Estado</code> = pagada, no solo emitida.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Monto pagado completo</b><span class="d"> — <code>Factura.PagoCuenta &gt;= TotalBruto</code> (o proporción exacta si se permite comisión parcial explícita).</span></div></li>
+          <li><span class="mk">✓</span><div><b>Fecha de pago dentro de la ventana de liquidación</b><span class="d"> — el pago debe ser anterior a la fecha de corte de la planilla de comisiones, no solo "algún día".</span></div></li>
+          <li><span class="mk">✓</span><div><b>Cliente activo</b><span class="d"> — <code>AbonadoServicio.Estado = '002'</code> a la fecha de liquidación, no solo a fin del mes de venta.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Cliente sin mora</b><span class="d"> — <code>Abonado.EstadoCartera</code> distinto de mora/castigada a la fecha de liquidación.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Contrato vigente</b><span class="d"> — <code>AbonadoFichaInscripcion</code> firmada y sin anulación registrada para la orden de servicio origen.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Factura sin nota de crédito</b><span class="d"> — sin registro en <code>NotaCreditoFactura</code> vinculado a esa <code>Factura</code>.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Sin devolución de equipos / servicio</b><span class="d"> — sin <code>OrdenServicio</code> de baja o retiro (<code>IndRetEquipos</code>) asociada al mismo abonado en la ventana de reclamo.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Sin baja registrada</b><span class="d"> — <code>OrdenServicio.MotivoAnulacionOS</code> vacío y sin OS de baja posterior (<code>IdOsAfectada</code>) sobre el mismo servicio.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Orden de servicio sin anulación</b><span class="d"> — <code>EstOS &lt;&gt; anulada</code> en el momento de liquidar, no solo en el momento de ejecutar.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Sin reclamo técnico pendiente</b><span class="d"> — sin <code>OrdenServicio</code> de tipo reclamo (<code>MotivoReclamo</code>) abierta sobre la instalación dentro de la ventana de garantía.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Sin indicio de fraude</b><span class="d"> — cruce contra lista de patrones sospechosos (múltiples altas al mismo domicilio/documento, mismo vendedor con tasa de reversa anómala).</span></div></li>
+          <li><span class="mk">✓</span><div><b>Sin duplicidad</b><span class="d"> — no existe ya una fila de comisión para la misma <code>OrdenServicio</code>/abonado/vendedor/período (requiere, primero, que la comisión referencie la venta puntual — ver R-07).</span></div></li>
+          <li><span class="mk">✓</span><div><b>Sin cambios posteriores a la venta</b><span class="d"> — plan, tarifa o vendedor no fueron modificados entre la ejecución y la liquidación sin re-evaluar la comisión.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Vendedor activo/habilitado</b><span class="d"> — <code>tbVendedores</code> no marca cese o suspensión disciplinaria del vendedor a la fecha de pago.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Tarifa validada contra tarifario vigente</b><span class="d"> — el importe base de comisión coincide con <code>AbonadoTarifa</code>/tarifario oficial, no un valor libre digitado en la OS.</span></div></li>
+          <li><span class="mk">✓</span><div><b>Ventana mínima de permanencia cumplida</b><span class="d"> — el servicio permaneció activo un mínimo de N días (p. ej. 30–60) sin corte, medido al momento de liquidar, no solo al cierre del mes de venta.</span></div></li>
+        </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="casos-borde">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Casos borde</h2></div>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 4</b> — escenarios donde el proceso actual falla o queda indefinido</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Caso</th><th>Qué pasa hoy</th><th>Qué debería pasar</th></tr></thead>
+          <tbody>
+            <tr><td>Cliente paga después de 90 días</td><td>Comisión ya pagada hace ~2 meses; no hay reversa automática.</td><td>Comisión debía estar en reserva; se libera recién ahora, o se recupera de planilla si ya se pagó indebidamente.</td></tr>
+            <tr><td>Pago parcial de la factura</td><td>Se ignora el monto real pagado; se comisiona el 100%.</td><td>Comisión proporcional al monto efectivamente cobrado, o diferida hasta completar el pago.</td></tr>
+            <tr><td>Cliente paga dos meses juntos</td><td>Ambos períodos ya comisionaron por separado (o uno quedó sin cobrar y sin marca).</td><td>Conciliación por factura individual, no por "mes de venta" genérico.</td></tr>
+            <tr><td>Cambio de titular del servicio</td><td>El nuevo titular hereda el <code>idVendedor</code> original; no está claro si se recomisiona.</td><td>Regla explícita: cambio de titular no genera nueva comisión salvo nueva venta formal.</td></tr>
+            <tr><td>Cambio de plan (upgrade/downgrade) tras la venta</td><td><code>SegundoPlan</code>/<code>TercerPlan</code> existen en <code>OrdenServicio</code>, pero no se ve recálculo retroactivo de comisión ya pagada sobre el plan original.</td><td>Ajuste (positivo o negativo) de comisión prorrateado a la fecha del cambio.</td></tr>
+            <tr><td>Cambio de vendedor a mitad de proceso</td><td>Ambiguo — depende de qué <code>idVendedor</code> quede grabado al momento del corte de comisión.</td><td>Comisión ligada al vendedor que originó la <code>OrdenServicio</code> ejecutada, inmutable tras liquidar.</td></tr>
+            <tr><td>Factura anulada después de pagada la comisión</td><td>Sin reversa; pérdida directa.</td><td>Trigger de reversa/recuperación automática al detectar <code>Factura.IndAnulado=1</code> con comisión ya liquidada.</td></tr>
+            <tr><td>Comisión ya pagada y luego se detecta venta ficticia</td><td>Requiere intervención manual, sin proceso ni pista de auditoría estándar.</td><td>Flujo formal de "comisión revertida" con causal y aprobación registrada.</td></tr>
+            <tr><td>Recuperación de deuda (cliente que estaba en mora y paga)</td><td>Existe <code>ProyeccionCobranza</code>/gestión de cobranza, pero desconectada del ciclo de comisión.</td><td>Al recuperarse la deuda, liberar la comisión retenida correspondiente.</td></tr>
+            <tr><td>Cartera castigada (write-off)</td><td>Sin señal — la comisión ya se pagó meses atrás sobre una deuda hoy incobrable.</td><td>Debe excluirse de raíz: nunca debió llegar a "pagada" sin cobro confirmado.</td></tr>
+            <tr><td>Reactivación de un servicio dado de baja</td><td><code>fnc_GetIndicadorFechaReconexionComisionCampo</code> puede recontar como venta activa dentro del mismo mes.</td><td>Reactivación comisiona solo si cumple criterios de "venta nueva" explícitos (ventana mínima sin servicio, nueva firma).</td></tr>
+            <tr><td>Baja temporal (suspensión, no baja definitiva)</td><td>Depende de si se registró "corte" contable en el mes evaluado.</td><td>Comisión en cuarentena mientras dure cualquier suspensión, sin importar el motivo.</td></tr>
+            <tr><td>Baja definitiva poco después de la venta</td><td>Si ocurre después del cierre del mes de venta, no revierte nada.</td><td>Ventana de reversa de al menos 60–90 días desde la ejecución, alineada al ciclo real de mora.</td></tr>
+            <tr><td>Errores de digitación (tarifa, plan, documento)</td><td>Se propagan directo al cálculo de comisión.</td><td>Validación cruzada contra tarifario/documento antes de comisionar.</td></tr>
+            <tr><td>Migración de sistema o de tarifa antigua a nueva</td><td>Tablas de homologación (<code>HomologacionTarifaComision</code>) existen, pero su cobertura ante datos migrados no está verificada en este alcance.</td><td>Todo registro migrado pasa por las mismas validaciones que uno nativo antes de comisionar.</td></tr>
+            <tr><td>Cambio de ciclo de facturación del abonado</td><td>Puede desalinear el "mes de venta" usado por el cálculo respecto al mes real de la primera factura.</td><td>Comisión ligada al ciclo de facturación efectivo del abonado, no a un calendario fijo.</td></tr>
+            <tr><td>Venta con nota de crédito parcial (descuento posterior, no anulación total)</td><td>No hay ajuste proporcional detectado.</td><td>Comisión recalculada sobre base neta de nota de crédito.</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="diseno">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Diseño correcto del proceso</h2></div>
+      <p>El principio rector, estándar en comisiones de venta con cobro diferido (telecomunicaciones, seguros, suscripciones): <b>la comisión nace con la venta, pero no se paga hasta que el efectivo asociado esté confirmado y sea razonablemente irreversible.</b> Entre ambos momentos, la comisión vive en un estado de reserva — visible, calculada, pero no exigible.</p>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 5</b> — seis momentos del ciclo de vida de una comisión</div>
+        <div class="exhibit-body" style="padding:4px 22px;">
+        <ul class="checklist">
+          <li><span class="mk">1</span><div><b>Nace</b><span class="d"> — al ejecutarse la orden de servicio (igual que hoy); se calcula el importe potencial pero no se acredita.</span></div></li>
+          <li><span class="mk">2</span><div><b>Se reserva</b><span class="d"> — se registra como pasivo contingente ligado 1:1 a la <code>OrdenServicio</code> y a la primera <code>Factura</code> esperada. Visible para el vendedor ("comisión proyectada"), no disponible para pago.</span></div></li>
+          <li><span class="mk">3</span><div><b>Se confirma</b><span class="d"> — cuando esa factura específica registra <code>FechaPago</code> con monto completo y sin nota de crédito activa, Y el servicio sigue activo sin reclamo abierto.</span></div></li>
+          <li><span class="mk">4</span><div><b>Se libera</b><span class="d"> — tras una ventana de estabilidad (p. ej. 30 días adicionales sin reversa, alineada a la política de mora del dominio 016 ya existente en el sistema).</span></div></li>
+          <li><span class="mk">5</span><div><b>Se paga</b><span class="d"> — se incluye en la planilla de comisiones del vendedor, con referencia explícita a <code>IdOS</code>/<code>IdFactura</code> de origen.</span></div></li>
+          <li><span class="mk">6</span><div><b>Se revierte (si corresponde)</b><span class="d"> — ante anulación, nota de crédito, baja temprana o fraude confirmado, incluso después de pagada: se descuenta de la siguiente planilla con motivo y aprobación registrados.</span></div></li>
+        </ul>
+        </div>
+      </div>
+      <p>Esto no exige rehacer el sistema: las piezas ya existen (<code>Factura.FechaPago</code>, <code>NotaCreditoFactura</code>, <code>Abonado.EstadoCartera</code>, <code>AbonadoServicio.Estado</code>). Falta que el motor de comisiones las consulte antes de pagar, y que la comisión se registre a nivel de venta individual en vez de agregado por período.</p>
+    </section>
+
+    <section id="estados">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Modelo de estados propuesto</h2></div>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 6</b> — máquina de estados de una comisión individual</div>
+        <div class="exhibit-body">
+<pre class="mermaid">
+stateDiagram-v2
+    [*] --> VentaRegistrada
+    VentaRegistrada --> OSEjecutada: instalación conforme (EstOS=003)
+    OSEjecutada --> ComisionReservada: cálculo automático (potencial, no pagable)
+    ComisionReservada --> FacturaPendiente: se emite primera Factura
+    FacturaPendiente --> PagoConfirmado: Factura.FechaPago + monto completo
+    FacturaPendiente --> ComisionAnulada: factura anulada / NC total antes de pago
+    PagoConfirmado --> ComisionAprobada: sin reclamo, sin corte, ventana mínima cumplida
+    PagoConfirmado --> ComisionAjustada: pago parcial o NC parcial
+    ComisionAjustada --> ComisionAprobada: diferencia saldada
+    ComisionAprobada --> ComisionLiquidada: incluida en planilla del período
+    ComisionLiquidada --> ComisionPagada: transferencia/abono al vendedor
+    ComisionPagada --> ComisionRevertida: anulación, mora firme, fraude o baja temprana detectados
+    ComisionReservada --> ComisionAnulada: OS anulada / venta rechazada antes de facturar
+    ComisionAnulada --> [*]
+    ComisionRevertida --> [*]
+    ComisionPagada --> [*]
+</pre>
+        </div>
+      </div>
+      <p>Cada transición debe quedar registrada con usuario, fecha y causal — ver <a href="#auditoria">sección 08</a>. El estado <code>ComisionAjustada</code> cubre explícitamente pagos parciales, refinanciamientos y notas de crédito parciales sin forzar un binario pagó/no pagó.</p>
+    </section>
+
+    <section id="reglas">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Reglas de negocio para evitar pérdidas económicas</h2></div>
+      <ol class="rules">
+        <li>Ninguna comisión pasa a estado <b>Liquidada</b> sin una <code>Factura</code> con <code>FechaPago</code> registrada y monto igual al total facturado.</li>
+        <li>Toda comisión se referencia a nivel de <code>OrdenServicio</code> + <code>Factura</code> individuales — nunca solo a nivel de vendedor + período agregado.</li>
+        <li>Una ventana mínima de permanencia sin corte (recomendado: 30 días desde el primer pago confirmado) debe transcurrir antes de pasar de <code>PagoConfirmado</code> a <code>ComisionAprobada</code>.</li>
+        <li>Toda anulación de factura o nota de crédito posterior al pago de una comisión dispara automáticamente un registro en <code>ComisionRevertida</code>, con descuento programado en la siguiente planilla del vendedor.</li>
+        <li>El monto de comisión nunca excede el porcentaje pactado sobre el monto <b>neto efectivamente cobrado</b> (post nota de crédito, post descuento), nunca sobre el monto facturado bruto.</li>
+        <li>Un mismo par (<code>IdOS</code>, período) no puede generar más de una fila de comisión: se aplica upsert/`MERGE` con llave única, no INSERT ciego.</li>
+        <li>Cambios de vendedor posteriores a la ejecución de la OS no reasignan comisiones ya generadas; solo aplican hacia ventas futuras.</li>
+        <li>Cambios de plan o tarifa dentro de la ventana de reserva recalculan la comisión potencial antes de confirmarla — nunca después de liquidada sin proceso de reversa formal.</li>
+        <li>Toda comisión revertida requiere causal tipificado (fraude, anulación, mora, error) y usuario aprobador — nunca un ajuste libre en el monto sin trazabilidad.</li>
+        <li>Los vendedores con tasa de reversa de comisión superior a un umbral (p. ej. 15% de sus ventas del trimestre) entran a revisión obligatoria antes de continuar comisionando con las mismas condiciones.</li>
+        <li>Todo cálculo de comisión corre desde un job único y versionado (no variantes duplicadas por canal) — la lógica de selección de "venta activa" es una sola fuente de verdad parametrizada por canal, no cuatro procedimientos independientes.</li>
+      </ol>
+    </section>
+
+    <section id="auditoria">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Trazabilidad y auditoría</h2></div>
+      <h3>Tablas que deberían auditarse (trigger de auditoría o CDC)</h3>
+      <div class="exhibit">
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Tabla</th><th>Por qué</th></tr></thead>
+          <tbody>
+            <tr><td><code>DataVendedorComision</code> / <code>DetDataVendedorComision</code></td><td>Es el registro de pago mismo — cualquier INSERT/UPDATE/DELETE debe quedar con usuario y momento.</td></tr>
+            <tr><td><code>OrdenServicio</code></td><td>Cambios en <code>EstOS</code>, <code>FechaEjecucion</code>, <code>IdVendedorReinstalacion</code>, <code>ImportePlanInicial</code> alteran directamente la comisión.</td></tr>
+            <tr><td><code>Factura</code></td><td>Cambios en <code>Estado</code>, <code>IndAnulado</code>, <code>FechaPago</code> son el disparador natural de confirmación o reversa.</td></tr>
+            <tr><td><code>NotaCredito</code> / <code>NotaCreditoFactura</code></td><td>Toda emisión debe cruzarse automáticamente contra comisiones ya liquidadas sobre esa factura.</td></tr>
+            <tr><td><code>Abonado.EstadoCartera</code></td><td>Cambios a mora/castigada son la señal de riesgo más temprana disponible en el propio esquema.</td></tr>
+            <tr><td><code>VallaComisiones</code> / <code>DetVallaComisiones</code> / <code>VendedorComisionPersonalizado</code></td><td>Cambios en las metas o porcentajes de comisión son, en sí mismos, un vector de manipulación si no están controlados.</td></tr>
+            <tr><td><code>tbVendedores</code> / <code>JerarquiaVendedor</code></td><td>Altas, bajas y cambios de jerarquía afectan a quién se le atribuye y aprueba una comisión.</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <h3>Qué registrar en cada log</h3>
+      <ul>
+        <li><b>Quién aprobó cada pago</b> — usuario y rol, no solo "sistema"; ningún pago de comisión sin aprobador identificado.</li>
+        <li><b>Quién modificó una venta</b> — ya existen <code>IdUsuarioMod</code>/<code>FechaUltMod</code> en <code>OrdenServicio</code>; deben alimentar un log inmutable separado de auditoría, no solo el valor "último" sobrescrito en la fila.</li>
+        <li><b>Cuándo cambió el estado</b> — cada transición del modelo de estados (sección 06) con timestamp, estado anterior, estado nuevo y causal.</li>
+        <li><b>Historial completo de la comisión</b> — desde reservada hasta pagada o revertida, consultable por <code>IdOS</code> sin reconstrucción manual.</li>
+      </ul>
+    </section>
+
+    <section id="sql">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Consultas SQL de detección</h2></div>
+      <p>Adaptadas a los nombres reales de tabla/columna verificados en el esquema. Como no existe llave foránea directa entre <code>OrdenServicio</code>/comisión y <code>Factura</code> (hallazgo R-07), estas consultas enlazan por <code>idAbonado</code> + proximidad de fecha; deben validarse con el equipo de datos antes de usarse como base de descuentos en planilla.</p>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 7.1</b> — comisiones pagadas sin evidencia de pago del cliente</div>
+        <div class="exhibit-body"><pre><code>SELECT
+    dvc.idVendedor,
+    dvc.PeriodoVenta,
+    o.IdOS,
+    o.IdAbonado,
+    o.ImportePlanInicial,
+    f.IdFactura,
+    f.FechaEmision,
+    f.FechaPago,
+    f.IndAnulado
+FROM DetDataVendedorComision ddvc
+JOIN DataVendedorComision dvc  ON dvc.idDataVendedorComision = ddvc.idDataVendedorComision
+JOIN OrdenServicio o           ON o.IdVendedorReinstalacion = dvc.idVendedor
+                               AND CONVERT(varchar(6), o.FechaEjecucion, 112) = LEFT(REPLACE(dvc.PeriodoVenta,'-',''),6)
+LEFT JOIN Factura f            ON f.idAbonado = o.IdAbonado
+                               AND f.FechaEmision >= o.FechaEjecucion
+                               AND f.FechaEmision < DATEADD(MONTH, 2, o.FechaEjecucion)
+WHERE o.EstOS = '003'
+  AND (f.IdFactura IS NULL OR f.FechaPago IS NULL OR f.IndAnulado = 1)
+ORDER BY dvc.PeriodoVenta DESC, dvc.idVendedor;</code></pre></div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 7.2</b> — posibles comisiones duplicadas (mismo vendedor/período/valla)</div>
+        <div class="exhibit-body"><pre><code>SELECT idVendedor, PeriodoVenta, idDetValla, COUNT(*) AS filas,
+       SUM(ImporteComisionTotalActivos) AS total_comisionado
+FROM DataVendedorComision
+GROUP BY idVendedor, PeriodoVenta, idDetValla
+HAVING COUNT(*) > 1
+ORDER BY total_comisionado DESC;</code></pre></div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 7.3</b> — ventas (órdenes de servicio) anuladas que ya generaron comisión</div>
+        <div class="exhibit-body"><pre><code>SELECT o.IdOS, o.IdAbonado, o.IdVendedorReinstalacion, o.FechaEjecucion,
+       o.MotivoAnulacionOS, dvc.PeriodoVenta, dvc.ImporteComisionTotalActivos
+FROM OrdenServicio o
+JOIN DataVendedorComision dvc
+     ON dvc.idVendedor = o.IdVendedorReinstalacion
+     AND LEFT(REPLACE(dvc.PeriodoVenta,'-',''),6) = CONVERT(varchar(6), o.FechaEjecucion, 112)
+WHERE o.MotivoAnulacionOS IS NOT NULL
+   OR o.EstOS = '020'  -- anulada, dominio 014
+ORDER BY o.FechaEjecucion DESC;</code></pre></div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 7.4</b> — clientes morosos con comisión ya liquidada</div>
+        <div class="exhibit-body"><pre><code>SELECT a.IdAbonado, a.EstadoCartera, a.idVendedor,
+       dvc.PeriodoVenta, dvc.ImporteComisionTotalActivos
+FROM Abonado a
+JOIN OrdenServicio o  ON o.IdAbonado = a.IdAbonado AND o.EstOS = '003'
+JOIN DataVendedorComision dvc
+     ON dvc.idVendedor = o.IdVendedorReinstalacion
+     AND LEFT(REPLACE(dvc.PeriodoVenta,'-',''),6) = CONVERT(varchar(6), o.FechaEjecucion, 112)
+WHERE a.EstadoCartera IN ('MORA','CASTIGADA')   -- ajustar a los códigos vigentes del dominio de EstadoCartera
+ORDER BY dvc.PeriodoVenta DESC;</code></pre></div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 7.5</b> — facturas con nota de crédito posterior al pago de la comisión</div>
+        <div class="exhibit-body"><pre><code>SELECT f.IdFactura, f.idAbonado, f.FechaEmision, f.FechaPago,
+       nc.IdNotaCredito, nc.Fecha AS FechaNotaCredito, nc.TotalNotaCredito,
+       dvc.PeriodoVenta, dvc.ImporteComisionTotalActivos
+FROM Factura f
+JOIN NotaCreditoFactura ncf ON ncf.IdFactura = f.IdFactura
+JOIN NotaCredito nc         ON nc.IdNotaCredito = ncf.IdNotaCredito
+JOIN OrdenServicio o        ON o.IdAbonado = f.idAbonado AND o.EstOS = '003'
+JOIN DataVendedorComision dvc
+     ON dvc.idVendedor = o.IdVendedorReinstalacion
+     AND LEFT(REPLACE(dvc.PeriodoVenta,'-',''),6) = CONVERT(varchar(6), o.FechaEjecucion, 112)
+WHERE nc.Fecha > f.FechaPago
+ORDER BY nc.Fecha DESC;</code></pre></div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 7.6</b> — órdenes de servicio comisionadas sin ficha de inscripción / contrato</div>
+        <div class="exhibit-body"><pre><code>SELECT o.IdOS, o.IdAbonado, o.IdVendedorReinstalacion, o.FechaEjecucion
+FROM OrdenServicio o
+LEFT JOIN AbonadoFichaInscripcion afi ON afi.idAbonado = o.IdAbonado
+WHERE o.EstOS = '003'
+  AND o.TipoOS = '001'
+  AND afi.idAbonado IS NULL;</code></pre></div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 7.7</b> — brecha entre lo comisionado y lo realmente cobrado, por vendedor/mes</div>
+        <div class="exhibit-body"><pre><code>SELECT dvc.idVendedor, dvc.PeriodoVenta,
+       dvc.ImporteComisionTotalActivos                          AS comisionado,
+       SUM(COALESCE(f.PagoCuenta,0))                             AS cobrado_real,
+       dvc.ImporteComisionTotalActivos - SUM(COALESCE(f.PagoCuenta,0)) AS brecha
+FROM DataVendedorComision dvc
+JOIN OrdenServicio o ON o.IdVendedorReinstalacion = dvc.idVendedor
+                     AND LEFT(REPLACE(dvc.PeriodoVenta,'-',''),6) = CONVERT(varchar(6), o.FechaEjecucion, 112)
+LEFT JOIN Factura f  ON f.idAbonado = o.IdAbonado
+GROUP BY dvc.idVendedor, dvc.PeriodoVenta, dvc.ImporteComisionTotalActivos
+HAVING dvc.ImporteComisionTotalActivos - SUM(COALESCE(f.PagoCuenta,0)) > 0
+ORDER BY brecha DESC;</code></pre></div>
+      </div>
+    </section>
+
+    <section id="recomendaciones">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Recomendaciones priorizadas por impacto</h2></div>
+
+      <div class="priority-block crit">
+        <h3><span class="chip crit">Crítica</span> Cerrar la brecha pago-comisión</h3>
+        <p class="impact">Beneficio: elimina la causa raíz de la fuga económica descrita en el problema original — no una mitigación, la corrección directa.</p>
+        <div class="item"><p class="t">Condicionar el paso a "Liquidada" a <code>Factura.FechaPago</code> confirmado y monto completo.</p><p>Beneficio económico: detiene de inmediato el pago de comisión sobre ventas no cobradas — el ítem de mayor impacto de todo el informe, proporcional al % de ventas actualmente comisionadas que nunca se cobran.</p></div>
+        <div class="item"><p class="t">Implementar reversa automática de comisión ante anulación de factura o nota de crédito.</p><p>Recupera pérdidas que hoy son silenciosas y quedan enterradas en el costo de ventas.</p></div>
+      </div>
+
+      <div class="priority-block high">
+        <h3><span class="chip high">Alta</span> Restaurar trazabilidad</h3>
+        <div class="item"><p class="t">Registrar la comisión a nivel de <code>OrdenServicio</code> + <code>Factura</code> individual, no solo agregada por vendedor/período.</p><p>Sin esto, ninguna otra recomendación de este informe es auditable ni verificable en producción — es la base habilitante de todo lo demás.</p></div>
+        <div class="item"><p class="t">Unificar los cuatro procedimientos de cálculo (<code>Campo</code>, <code>CallCenter</code>, <code>Personalizado</code>, y las copias <code>XXX</code>) en una sola fuente de verdad parametrizada.</p><p>Reduce el riesgo de que una corrección se aplique en un canal y no en otro — hoy garantizado dado el número de copias detectadas.</p></div>
+        <div class="item"><p class="t">Agregar restricción única (o `MERGE`) sobre <code>(idVendedor, PeriodoVenta, idDetValla)</code> en <code>DataVendedorComision</code>.</p><p>Cierra el vector de pago duplicado por reejecución accidental del procedimiento.</p></div>
+      </div>
+
+      <div class="priority-block med">
+        <h3><span class="chip med">Media</span> Afinar reglas de negocio</h3>
+        <div class="item"><p class="t">Prorratear comisión ante pagos parciales, refinanciamientos y notas de crédito parciales.</p><p>Alinea el costo de ventas al ingreso real, mes a mes, en vez de corregir en bloque al cierre anual.</p></div>
+        <div class="item"><p class="t">Definir ventana mínima de permanencia sin corte (30–60 días) antes de aprobar la comisión.</p><p>Reduce exposición a bajas tempranas que hoy no alcanzan a reflejarse dentro del ciclo de un mes.</p></div>
+        <div class="item"><p class="t">Alertas automáticas para vendedores con tasa de reversa anómala.</p><p>Convierte una señal hoy invisible (R-05, R-09) en un control preventivo de fraude e incentivos mal alineados.</p></div>
+      </div>
+
+      <div class="priority-block low">
+        <h3><span class="chip low">Baja</span> Endurecimiento y limpieza</h3>
+        <div class="item"><p class="t">Validar tarifa/plan capturado en la OS contra el tarifario oficial antes de comisionar.</p><p>Elimina errores de digitación como fuente de variación en el monto comisionado.</p></div>
+        <div class="item"><p class="t">Retirar o congelar procedimientos de prueba con sufijo <code>XXX</code> hallados en el catálogo de rutinas.</p><p>Reduce superficie de error operativo y confusión de mantenimiento, sin beneficio económico directo pero con reducción de riesgo técnico.</p></div>
+      </div>
+    </section>
+
+    <footer>
+      <p><b>Nota metodológica:</b> este informe se elaboró con acceso de solo lectura al esquema de producción (tablas, columnas y definición de procedimientos almacenados vía <code>INFORMATION_SCHEMA</code> y <code>OBJECT_DEFINITION</code>). Se citan objetos reales (<code>OrdenServicio</code>, <code>Factura</code>, <code>ComprobantePago</code>, <code>NotaCredito</code>, <code>DataVendedorComision</code>, <code>usp_DataVendedorComisionInsertarCampo_gl</code>, entre otros) verificados directamente contra la base de datos. Las consultas de la sección 09 enlazan por abonado y proximidad de fecha ante la ausencia de llave foránea directa entre venta y comisión (hallazgo R-07); deben validarse contra los códigos vigentes de dominio (p. ej. <code>EstadoCartera</code>) antes de usarse para descuentos reales en planilla. No se ejecutó ninguna operación de escritura sobre la base de datos durante esta auditoría.</p>
+    </footer>
+  </main>
+</div>
