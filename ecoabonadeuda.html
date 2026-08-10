@@ -1,0 +1,201 @@
+<title>¿Quién paga y cuándo? — Moroso, al día y nunca pagó</title>
+<style>
+:root{
+  --bg:#F3F5F6; --bg-raised:#FFFFFF; --ink:#182126; --ink-soft:#4B565D; --ink-faint:#7A848B;
+  --line:#D7DDE0; --line-strong:#B7C0C4; --accent:#0B646C; --accent-strong:#074E54; --accent-tint:#E1F0EF;
+  --good:#3C6B49; --good-tint:#E1EEE3;
+  --moroso:#8A7311; --moroso-tint:#F3EED0;
+  --nunca:#A32A20; --nunca-tint:#F8E3E0;
+  --aldia:#3C6B49; --aldia-tint:#E1EEE3;
+  --mono:"Cascadia Code","SF Mono",Consolas,Menlo,monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#10151A; --bg-raised:#161D23; --ink:#E7ECEF; --ink-soft:#AFBAC0; --ink-faint:#7C8890;
+    --line:#2A343B; --line-strong:#3A464E; --accent:#4FC2C9; --accent-strong:#7DDAE0; --accent-tint:#122A2B;
+    --good:#7FBF93; --good-tint:#16261B; --moroso:#D3BE5D; --moroso-tint:#2D2811;
+    --nunca:#E2685A; --nunca-tint:#301917; --aldia:#7FBF93; --aldia-tint:#16261B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151A; --bg-raised:#161D23; --ink:#E7ECEF; --ink-soft:#AFBAC0; --ink-faint:#7C8890;
+  --line:#2A343B; --line-strong:#3A464E; --accent:#4FC2C9; --accent-strong:#7DDAE0; --accent-tint:#122A2B;
+  --good:#7FBF93; --good-tint:#16261B; --moroso:#D3BE5D; --moroso-tint:#2D2811;
+  --nunca:#E2685A; --nunca-tint:#301917; --aldia:#7FBF93; --aldia-tint:#16261B;
+}
+:root[data-theme="light"]{
+  --bg:#F3F5F6; --bg-raised:#FFFFFF; --ink:#182126; --ink-soft:#4B565D; --ink-faint:#7A848B;
+  --line:#D7DDE0; --line-strong:#B7C0C4; --accent:#0B646C; --accent-strong:#074E54; --accent-tint:#E1F0EF;
+  --good:#3C6B49; --good-tint:#E1EEE3; --moroso:#8A7311; --moroso-tint:#F3EED0;
+  --nunca:#A32A20; --nunca-tint:#F8E3E0; --aldia:#3C6B49; --aldia-tint:#E1EEE3;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--accent-tint);color:var(--accent-strong);}
+h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;color:var(--ink);margin:0;}
+p{max-width:66ch;color:var(--ink-soft);}
+
+.page{max-width:920px;margin:0 auto;padding:56px 32px 100px;}
+@media (max-width:640px){.page{padding:36px 18px 80px;}}
+
+.kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+h1.title{font-size:clamp(28px,4vw,40px);max-width:20ch;margin-bottom:14px;}
+.dek{font-size:17px;max-width:62ch;margin-bottom:8px;}
+.dateline{font-family:var(--mono);font-size:12px;color:var(--ink-faint);margin-top:18px;padding-top:18px;border-top:1px solid var(--line);}
+
+section{margin-top:52px;}
+h2{font-size:22px;margin-bottom:6px;}
+.section-sub{font-size:14px;color:var(--ink-faint);margin-bottom:22px;}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+@media (max-width:640px){.split{grid-template-columns:1fr;}}
+.bigstat{border:1px solid var(--line);border-radius:8px;padding:20px 22px;background:var(--bg-raised);}
+.bigstat .n{font-family:var(--serif);font-size:36px;line-height:1;}
+.bigstat .l{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);margin-top:6px;}
+.bigstat .d{font-size:13.5px;color:var(--ink-soft);margin-top:6px;}
+
+/* stacked composition bar */
+.compbar{display:flex;width:100%;height:38px;border-radius:6px;overflow:hidden;margin:18px 0 10px;border:1px solid var(--line-strong);}
+.compbar .seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11.5px;color:#fff;white-space:nowrap;overflow:hidden;}
+.seg.normal{background:var(--accent);}
+.seg.moroso{background:var(--moroso);}
+.seg.aldia{background:var(--aldia);}
+.seg.nunca{background:var(--nunca);}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--ink-soft);margin-bottom:6px;}
+.legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;position:relative;top:1px;}
+.dot.normal{background:var(--accent);} .dot.moroso{background:var(--moroso);} .dot.aldia{background:var(--aldia);} .dot.nunca{background:var(--nunca);}
+
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--bg-raised);margin:20px 0;}
+table{border-collapse:collapse;width:100%;font-size:13.6px;min-width:520px;}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);}
+thead th{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);border-bottom:1px solid var(--line-strong);white-space:nowrap;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr.total td{font-weight:600;border-top:1.5px solid var(--line-strong);}
+td.num,th.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;}
+.check{color:var(--good);font-weight:600;}
+
+.callout{background:var(--accent-tint);border-left:3px solid var(--accent);border-radius:2px;padding:18px 20px;margin:22px 0;}
+.callout p{color:var(--ink);margin:0;max-width:none;}
+.callout .lbl{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--accent-strong);display:block;margin-bottom:6px;}
+
+.paydist{display:grid;gap:10px;margin:18px 0;}
+.payrow{display:grid;grid-template-columns:110px 1fr 60px;align-items:center;gap:12px;font-size:13.5px;}
+.payrow .track{height:16px;background:var(--line);border-radius:4px;overflow:hidden;}
+.payrow .fill{height:100%;background:var(--moroso);border-radius:4px 0 0 4px;}
+.payrow .pct{font-family:var(--mono);text-align:right;color:var(--ink-faint);font-size:12.5px;}
+.yeargroup{margin-top:26px;}
+.yeargroup h3{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);font-weight:600;margin-bottom:10px;}
+
+footer{border-top:1px solid var(--line);margin-top:60px;padding-top:20px;font-size:12.5px;color:var(--ink-faint);}
+</style>
+
+<div class="page">
+  <div class="kicker">Auditoría de comisiones · CableGo / Econocable</div>
+  <h1 class="title">¿Quién paga, y cuándo?</h1>
+  <p class="dek">De las 92,225 ventas comisionadas entre septiembre 2024 y abril 2026, esto es exactamente lo que pasó con cada sol que debía cobrarse — validado contra el registro real de pagos, no una estimación.</p>
+  <div class="dateline">Período: sep-2024 a abr-2026 · Identidad de abonado: idFilial + IdAbonado</div>
+
+  <section>
+    <h2>La composición real</h2>
+    <p class="section-sub">No todo lo que "no cobró en 30 días" es lo mismo. Cuatro grupos, cuatro destinos distintos.</p>
+    <div class="legend">
+      <span><span class="dot normal"></span>Pagó normal</span>
+      <span><span class="dot moroso"></span>Moroso con deuda</span>
+      <span><span class="dot aldia"></span>Pagó tarde, al día</span>
+      <span><span class="dot nunca"></span>Nunca pagó</span>
+    </div>
+    <div class="compbar">
+      <div class="seg normal" style="width:55.9%">55.9%</div>
+      <div class="seg moroso" style="width:27.3%">27.3%</div>
+      <div class="seg aldia" style="width:5.3%"></div>
+      <div class="seg nunca" style="width:11.4%">11.4%</div>
+    </div>
+    <div class="split">
+      <div class="bigstat"><div class="n">51,521</div><div class="l">Pagó normal</div><div class="d">Cobró dentro de 30 días — el sistema funcionó.</div></div>
+      <div class="bigstat"><div class="n">25,216</div><div class="l">Moroso con deuda</div><div class="d">Pagó algo, tarde, pero sigue debiendo hoy.</div></div>
+      <div class="bigstat"><div class="n">4,931</div><div class="l">Pagó tarde, al día</div><div class="d">Se atrasó, pero ya cubrió lo que debía.</div></div>
+      <div class="bigstat"><div class="n">10,557</div><div class="l">Nunca pagó</div><div class="d">Cero pagos hasta hoy — 9,454 ya con corte definitivo.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>La reconciliación</h2>
+    <p class="section-sub">Esta clasificación no es un número nuevo — suma exacto al total "sin cobro en 30 días" que ya se había reportado por año.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Año</th><th class="num">Total "sin cobro en 30d"</th><th>Moroso + Al día + Nunca pagó</th><th>¿Coincide?</th></tr></thead>
+        <tbody>
+          <tr><td>2024 (sep-dic)</td><td class="num">18,795</td><td>12,324 + 2,340 + 4,131 = 18,795</td><td class="check">✓ Exacto</td></tr>
+          <tr><td>2025 (completo)</td><td class="num">18,076</td><td>10,762 + 2,435 + 4,879 = 18,076</td><td class="check">✓ Exacto</td></tr>
+          <tr><td>2026 (ene-abr)</td><td class="num">3,834</td><td>2,130 + 156 + 1,547 = 3,833</td><td class="check">✓ (±1, redondeo)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>¿Los morosos llegan a pagar?</h2>
+    <p class="section-sub">Sí y no — depende de qué tan estricto sea "pagar".</p>
+    <div class="callout">
+      <span class="lbl">100% pagó algo. Solo 16.4% pagó todo.</span>
+      <p>De las 30,147 ventas que se atrasaron (moroso + al día), el <b>100% hizo al menos un pago real</b> — es la propia definición de estar en este grupo en vez de en "nunca pagó". Pero solo <b>4,931 (16.4%)</b> pagaron lo suficiente para quedar al día por completo. El otro <b>83.6% (25,216)</b> sigue con saldo pendiente hoy, aunque ya haya pagado una vez.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cuánto tardan en pagar</h2>
+    <p class="section-sub">Días desde la venta hasta el primer pago real, para el grupo moroso — y sí, casi todos pagan dentro de los primeros 60 días.</p>
+
+    <div class="yeargroup">
+      <h3>2024 — promedio 49 días</h3>
+      <div class="paydist">
+        <div class="payrow"><span>31–45 días</span><div class="track"><div class="fill" style="width:42%"></div></div><span class="pct">42%</span></div>
+        <div class="payrow"><span>46–60 días</span><div class="track"><div class="fill" style="width:45%"></div></div><span class="pct">45%</span></div>
+        <div class="payrow"><span>61–90 días</span><div class="track"><div class="fill" style="width:10%"></div></div><span class="pct">10%</span></div>
+        <div class="payrow"><span>91–180 días</span><div class="track"><div class="fill" style="width:2%"></div></div><span class="pct">2%</span></div>
+        <div class="payrow"><span>+180 días</span><div class="track"><div class="fill" style="width:0.4%"></div></div><span class="pct">0.4%</span></div>
+      </div>
+    </div>
+
+    <div class="yeargroup">
+      <h3>2025 — promedio 44 días</h3>
+      <div class="paydist">
+        <div class="payrow"><span>31–45 días</span><div class="track"><div class="fill" style="width:64%"></div></div><span class="pct">64%</span></div>
+        <div class="payrow"><span>46–60 días</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="pct">25%</span></div>
+        <div class="payrow"><span>61–90 días</span><div class="track"><div class="fill" style="width:7%"></div></div><span class="pct">7%</span></div>
+        <div class="payrow"><span>91–180 días</span><div class="track"><div class="fill" style="width:2%"></div></div><span class="pct">2%</span></div>
+        <div class="payrow"><span>+180 días</span><div class="track"><div class="fill" style="width:0.4%"></div></div><span class="pct">0.4%</span></div>
+      </div>
+    </div>
+
+    <div class="yeargroup">
+      <h3>2026 (ene-abr) — promedio 37 días</h3>
+      <div class="paydist">
+        <div class="payrow"><span>31–45 días</span><div class="track"><div class="fill" style="width:84%"></div></div><span class="pct">84%</span></div>
+        <div class="payrow"><span>46–60 días</span><div class="track"><div class="fill" style="width:8%"></div></div><span class="pct">8%</span></div>
+        <div class="payrow"><span>61–90 días</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="pct">3%</span></div>
+        <div class="payrow"><span>91–180 días</span><div class="track"><div class="fill" style="width:0.8%"></div></div><span class="pct">0.8%</span></div>
+        <div class="payrow"><span>+180 días</span><div class="track"><div class="fill" style="width:0%"></div></div><span class="pct">0%</span></div>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;">El tiempo de pago mejora año a año — de 49 a 37 días promedio — y la gran mayoría (87% a 92%, según el año) paga dentro de los primeros 60 días: un atraso de un ciclo de facturación, no una señal de riesgo severo. Los casos de 91 días o más (0.4%–2.4%) son la minoría que sí preocupa dentro de este grupo.</p>
+  </section>
+
+  <section>
+    <h2>Por qué la deuda de los morosos no se puede sumar sin cuidado</h2>
+    <p class="section-sub">Un intento directo de calcular "cuánto deben en total" dio números sin sentido — y vale la pena explicar por qué.</p>
+    <div class="callout">
+      <span class="lbl">El historial completo del cliente contamina el cálculo</span>
+      <p>Para un cliente moroso o al día que lleva meses o años activo, sumar todo su <code>Cargo</code> y <code>ComprobantePago</code> mezcla la deuda real de esta venta puntual con años de facturación normal ya pagada — el resultado se dispara a millones sin relación con el problema real. Esa fórmula solo es limpia para "nunca pagó" (pago real = S/0 garantizado, sin ese ruido), que es exactamente donde se validó la pérdida real de S/1,462,699 del informe principal.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Extracto de la auditoría de comisiones 2024–2026 (CableGo / Econocable). Datos de solo lectura sobre la base de producción; identidad de abonado siempre por <code style="font-family:var(--mono);background:var(--accent-tint);color:var(--accent-strong);padding:1px 5px;border-radius:3px;">idFilial + IdAbonado</code>.</p>
+  </footer>
+</div>
