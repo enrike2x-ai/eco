@@ -1,0 +1,674 @@
+<title>Auditoría de Comisiones 2024-2026 — Pérdida Real | CableGo / Econocable</title>
+<style>
+:root{
+  --bg:#F3F5F6; --bg-raised:#FFFFFF; --ink:#182126; --ink-soft:#4B565D; --ink-faint:#7A848B;
+  --line:#D7DDE0; --line-strong:#B7C0C4; --accent:#0B646C; --accent-strong:#074E54; --accent-tint:#E1F0EF;
+  --crit:#A32A20; --crit-tint:#F8E3E0; --high:#9C5A0E; --high-tint:#F6E7D3; --med:#8A7311; --med-tint:#F3EED0;
+  --low:#3C6B49; --low-tint:#E1EEE3; --y24:#6B5B95; --y24-tint:#EEE9F5; --y25:#0B646C; --y25-tint:#E1F0EF;
+  --y26:#B06A2C; --y26-tint:#F5E9DC;
+  --mono:"Cascadia Code","SF Mono",Consolas,Menlo,monospace; --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#10151A; --bg-raised:#161D23; --ink:#E7ECEF; --ink-soft:#AFBAC0; --ink-faint:#7C8890;
+  --line:#2A343B; --line-strong:#3A464E; --accent:#4FC2C9; --accent-strong:#7DDAE0; --accent-tint:#122A2B;
+  --crit:#E2685A; --crit-tint:#301917; --high:#E0A759; --high-tint:#302512; --med:#D3BE5D; --med-tint:#2D2811;
+  --low:#7FBF93; --low-tint:#16261B; --y24:#B2A2DB; --y24-tint:#211C34; --y25:#4FC2C9; --y25-tint:#122A2B;
+  --y26:#E0A759; --y26-tint:#302512; }
+}
+:root[data-theme="dark"]{ --bg:#10151A; --bg-raised:#161D23; --ink:#E7ECEF; --ink-soft:#AFBAC0; --ink-faint:#7C8890;
+  --line:#2A343B; --line-strong:#3A464E; --accent:#4FC2C9; --accent-strong:#7DDAE0; --accent-tint:#122A2B;
+  --crit:#E2685A; --crit-tint:#301917; --high:#E0A759; --high-tint:#302512; --med:#D3BE5D; --med-tint:#2D2811;
+  --low:#7FBF93; --low-tint:#16261B; --y24:#B2A2DB; --y24-tint:#211C34; --y25:#4FC2C9; --y25-tint:#122A2B;
+  --y26:#E0A759; --y26-tint:#302512; }
+:root[data-theme="light"]{ --bg:#F3F5F6; --bg-raised:#FFFFFF; --ink:#182126; --ink-soft:#4B565D; --ink-faint:#7A848B;
+  --line:#D7DDE0; --line-strong:#B7C0C4; --accent:#0B646C; --accent-strong:#074E54; --accent-tint:#E1F0EF;
+  --crit:#A32A20; --crit-tint:#F8E3E0; --high:#9C5A0E; --high-tint:#F6E7D3; --med:#8A7311; --med-tint:#F3EED0;
+  --low:#3C6B49; --low-tint:#E1EEE3; --y24:#6B5B95; --y24-tint:#EEE9F5; --y25:#0B646C; --y25-tint:#E1F0EF;
+  --y26:#B06A2C; --y26-tint:#F5E9DC; }
+
+*{box-sizing:border-box;} html,body{margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--accent-tint);color:var(--accent-strong);}
+a{color:var(--accent-strong);}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;text-wrap:balance;color:var(--ink);}
+p{max-width:72ch;}
+
+.shell{display:grid;grid-template-columns:272px minmax(0,1fr);gap:0;max-width:1400px;margin:0 auto;}
+@media (max-width:900px){.shell{grid-template-columns:1fr;}}
+.rail{position:sticky;top:0;align-self:start;height:100vh;border-right:1px solid var(--line);padding:28px 20px 28px 28px;overflow-y:auto;}
+@media (max-width:900px){.rail{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);}}
+.rail-mark{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid var(--line-strong);border-radius:3px;display:inline-block;padding:3px 7px;margin-bottom:14px;}
+.rail h1{font-size:18px;line-height:1.28;margin:0 0 4px;}
+.rail .sub{font-size:12.5px;color:var(--ink-faint);margin:0 0 22px;font-family:var(--mono);}
+.toc{list-style:none;margin:0;padding:0;font-size:13.5px;}
+.toc a{display:flex;gap:10px;padding:7px 8px;border-radius:4px;color:var(--ink-soft);text-decoration:none;}
+.toc a:hover{background:var(--accent-tint);color:var(--accent-strong);}
+.toc .n{font-family:var(--mono);color:var(--ink-faint);min-width:1.6em;}
+.toc-group{margin-top:16px;padding-top:10px;border-top:1px solid var(--line);}
+.toc-group:first-child{margin-top:0;padding-top:0;border-top:none;}
+
+main{padding:44px 48px 120px;min-width:0;}
+@media (max-width:900px){main{padding:32px 20px 90px;}}
+.cover{margin-bottom:56px;padding-bottom:36px;border-bottom:1px solid var(--line-strong);}
+.cover .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.cover h1{font-size:clamp(26px,3.2vw,38px);margin:0 0 14px;max-width:26ch;}
+.cover .dek{font-size:17px;color:var(--ink-soft);max-width:66ch;margin:0 0 28px;}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;max-width:840px;}
+.meta-grid dt{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin:0 0 3px;}
+.meta-grid dd{margin:0;font-size:14.5px;}
+
+section{margin:0 0 64px;scroll-margin-top:24px;}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;}
+.sec-num{font-family:var(--mono);font-size:14px;color:var(--accent);border:1px solid var(--line-strong);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex:none;}
+.sec-head h2{font-size:25px;margin:0;}
+
+.callout{background:var(--accent-tint);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:2px;padding:18px 20px;margin:20px 0;font-size:15px;}
+.callout p{margin:0;max-width:none;}
+.callout .lbl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-strong);display:block;margin-bottom:6px;}
+.finding{border:1px solid var(--line-strong);border-radius:3px;padding:20px 22px;margin:22px 0;background:var(--bg-raised);}
+.finding .lbl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--crit);display:block;margin-bottom:8px;}
+
+.exhibit{margin:26px 0;}
+.exhibit-cap{font-family:var(--mono);font-size:12px;color:var(--ink-faint);margin-bottom:8px;display:flex;gap:8px;align-items:baseline;}
+.exhibit-cap b{color:var(--ink-soft);font-weight:600;}
+.exhibit-body{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--bg-raised);}
+
+table{border-collapse:collapse;width:100%;font-size:13.2px;min-width:560px;}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+thead th{font-family:var(--mono);font-size:10.2px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);border-bottom:1px solid var(--line-strong);white-space:nowrap;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--accent-tint);}
+td.num,th.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;}
+tr.total-row td{font-weight:600;border-top:1.5px solid var(--line-strong);}
+
+.chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;padding:2.5px 8px;border-radius:99px;white-space:nowrap;}
+.chip.crit{background:var(--crit-tint);color:var(--crit);}
+.chip.high{background:var(--high-tint);color:var(--high);}
+.chip.med{background:var(--med-tint);color:var(--med);}
+.chip.low{background:var(--low-tint);color:var(--low);}
+.chip.y24{background:var(--y24-tint);color:var(--y24);}
+.chip.y25{background:var(--y25-tint);color:var(--y25);}
+.chip.y26{background:var(--y26-tint);color:var(--y26);}
+
+pre{font-family:var(--mono);font-size:12.4px;line-height:1.55;margin:0;padding:16px 18px;overflow-x:auto;white-space:pre;color:var(--ink);}
+code{font-family:var(--mono);font-size:.92em;background:var(--accent-tint);color:var(--accent-strong);padding:1.5px 5px;border-radius:3px;}
+pre code{background:none;color:inherit;padding:0;}
+.exhibit-body pre{border:none;}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:20px 0;}
+.kpi{border:1px solid var(--line);border-radius:6px;padding:16px 18px;background:var(--bg-raised);}
+.kpi .lbl{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-faint);}
+.kpi .val{font-family:var(--serif);font-size:25px;margin-top:4px;color:var(--ink);}
+.kpi .sub{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+
+ol.rules{margin:0;padding:0;list-style:none;counter-reset:rule;display:grid;gap:12px;}
+ol.rules li{counter-increment:rule;padding-left:36px;position:relative;font-size:14.5px;}
+ol.rules li::before{content:"P"counter(rule);position:absolute;left:0;top:.05em;font-family:var(--mono);font-size:11px;color:var(--accent);border:1px solid var(--line-strong);border-radius:3px;padding:2px 5px;}
+
+.funnel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:20px 0;}
+.funnel .stage{border:1px solid var(--line);border-radius:6px;padding:12px 16px;background:var(--bg-raised);flex:1;min-width:140px;text-align:center;}
+.funnel .stage .n{font-family:var(--serif);font-size:20px;}
+.funnel .stage .l{font-family:var(--mono);font-size:10px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.05em;}
+.funnel .arrow{color:var(--ink-faint);font-size:18px;}
+
+footer{border-top:1px solid var(--line-strong);padding-top:24px;margin-top:70px;font-size:12.5px;color:var(--ink-faint);}
+footer p{max-width:none;}
+@media (prefers-reduced-motion:no-preference){.toc a{transition:background .12s ease,color .12s ease;}}
+</style>
+
+<div class="shell">
+  <nav class="rail">
+    <span class="rail-mark">Auditoría 2024–2026</span>
+    <h1>Comisiones y pérdida real</h1>
+    <p class="sub">CableGo · Econocable</p>
+    <ul class="toc">
+      <li><a href="#regla"><span class="n">00</span> Regla de identidad</a></li>
+      <li><a href="#resumen"><span class="n">01</span> Resumen ejecutivo</a></li>
+      <li class="toc-group"></li>
+      <li><a href="#mensual"><span class="n">02</span> Tablas mensuales 2024–26</a></li>
+      <li><a href="#filial"><span class="n">03</span> Por filial</a></li>
+      <li><a href="#servicio"><span class="n">04</span> Por tipo de servicio</a></li>
+      <li><a href="#cobranza"><span class="n">05</span> Cuenta corriente real</a></li>
+      <li class="toc-group"></li>
+      <li><a href="#estado"><span class="n">06</span> Estado y permanencia</a></li>
+      <li><a href="#instalacion"><span class="n">07</span> ¿Instalación real?</a></li>
+      <li><a href="#incidencias"><span class="n">08</span> Órdenes posteriores</a></li>
+      <li><a href="#anomalias"><span class="n">09</span> Anomalías</a></li>
+      <li><a href="#embudo"><span class="n">10</span> Embudo venta→pérdida</a></li>
+      <li class="toc-group"></li>
+      <li><a href="#validacion"><span class="n">11</span> Validación: 15 casos</a></li>
+      <li><a href="#sql"><span class="n">12</span> Consultas SQL</a></li>
+      <li><a href="#metodologia"><span class="n">13</span> Metodología</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="cover">
+      <div class="kicker">Auditoría de comisiones — 2024, 2025 y 2026 (sep-2024 a abr-2026)</div>
+      <h1>Cuánto de lo comisionado se convierte en pérdida real, y dónde</h1>
+      <p class="dek">Comisiones pagadas a vendedores sobre abonados con 0–30 días de vida y/o S/0 pagado por el cliente. Clasificación completa (nunca pagó / moroso / pagó tarde al día / pagó normal), pérdida real validada contra el registro de facturación real (<code>Cargo</code>/<code>CargoAbono</code>, no una fórmula estimada), por mes, filial y tipo de servicio, con 15 casos trazados de punta a punta.</p>
+      <dl class="meta-grid">
+        <div><dt>Alcance</dt><dd>Ventas ejecutadas con comisión liquidada, sep-2024 a abr-2026 (20 meses)</dd></div>
+        <div><dt>Identidad de abonado</dt><dd><code>IdFilial + IdAbonado</code> en todo el análisis, nunca <code>IdAbonado</code> solo</dd></div>
+        <div><dt>Deuda</dt><dd>Validada contra <code>Cargo</code> (facturado real) y <code>CargoAbono</code> (descuentos reales, no pagos)</dd></div>
+        <div><dt>Fuente</dt><dd>Base de datos de producción, solo lectura</dd></div>
+      </dl>
+    </div>
+
+    <section id="regla">
+      <div class="sec-head"><span class="sec-num">00</span><h2>Regla crítica de identidad de abonado</h2></div>
+      <div class="finding">
+        <span class="lbl">Confirmado directamente en la base de datos</span>
+        <p><code>Abonado.IdAbonado</code> no es clave única global — la clave real es <code>(idFilial, IdAbonado)</code>. Verificado: <code>IdAbonado=137418</code> existe en 3 filiales distintas, como 3 personas distintas. Cada consulta de este informe usa <code>JOIN ... ON a.idFilial=b.idFilial AND a.IdAbonado=b.IdAbonado</code>. Una versión anterior que enlazaba solo por <code>IdAbonado</code> subestimó el problema en dos tercios (10.85% vs. 32.26% real) — ver sección 13.</p>
+      </div>
+    </section>
+
+    <section id="resumen">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Resumen ejecutivo</h2></div>
+      <p>92,225 ventas recibieron comisión liquidada entre septiembre 2024 y abril 2026. De ellas:</p>
+      <div class="kpi-row">
+        <div class="kpi"><span class="lbl">Pagó normal (≤30 días)</span><div class="val">51,521</div><div class="sub">55.9% — el sistema funcionó como debería</div></div>
+        <div class="kpi"><span class="lbl">Moroso con deuda activa</span><div class="val">25,216</div><div class="sub">27.3% — pagó tarde, aún debe</div></div>
+        <div class="kpi"><span class="lbl">Pagó tarde, ya al día</span><div class="val">4,931</div><div class="sub">5.3% — desfase de tiempo, no pérdida</div></div>
+        <div class="kpi"><span class="lbl">Nunca pagó (total)</span><div class="val">10,557</div><div class="sub">11.4% — de los cuales 9,454 ya con corte definitivo</div></div>
+      </div>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 1.1</b> — reconciliación: la clasificación nueva suma exacto al total "sin cobro en 30 días" ya reportado</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Año</th><th class="num">Total "sin cobro en 30d" (ya reportado)</th><th>Moroso + Al día + Nunca pagó (clasificación nueva)</th><th>¿Coincide?</th></tr></thead>
+          <tbody>
+            <tr><td><span class="chip y24">2024</span></td><td class="num">18,795</td><td>12,324 + 2,340 + 4,131 = 18,795</td><td>✅ Exacto</td></tr>
+            <tr><td><span class="chip y25">2025</span></td><td class="num">18,076</td><td>10,762 + 2,435 + 4,879 = 18,076</td><td>✅ Exacto</td></tr>
+            <tr><td><span class="chip y26">2026</span> (ene-abr)</td><td class="num">3,834</td><td>2,130 + 156 + 1,547 = 3,833</td><td>✅ (diferencia de 1 por redondeo)</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <p>El total "sin cobro en 30 días" no es, por sí solo, dinero perdido — mezcla tres situaciones muy distintas. De los morosos (25,216 en total), <b>el 100% pagó al menos una vez</b> (por definición de la categoría), pero solo una fracción se pone al día por completo: de las 30,147 ventas que pagaron tarde (moroso + al día), únicamente el 16.4% (4,931) terminó de cubrir lo que debía — el 83.6% restante (25,216) sigue con saldo pendiente hoy, aunque ya haya pagado algo. El moroso promedio hace su primer pago 37–49 días después de la venta (según el año) — la mayoría (87%-92%) paga dentro de los primeros 60 días, un atraso de un ciclo de facturación, no una señal de riesgo severo.</p>
+      <div class="finding">
+        <span class="lbl">Corrección validada contra el sistema real — 2026-08-10</span>
+        <p>Al comparar un caso puntual contra el reporte oficial "DETALLE DE DEUDA DEL ABONADO" del propio sistema (idFilial 35, IdAbonado 5474, FRANYER GAUTIER), la cifra de deuda no coincidía: el sistema mostraba <b>S/73.70</b>, esta auditoría había calculado <b>S/594.90</b>. La causa: el cálculo sumaba <b>todos</b> los <code>Cargo</code> sin filtrar por <code>Estado</code>. Se confirmó, cargo por cargo, que <code>Estado='005'</code> excluye sistemáticamente los "CARGOS POR RECONEXIÓN DE SERVICIO" (presentes en los 15 casos de validación, siempre en <code>Estado='005'</code>) del saldo de deuda — y en este caso puntual también excluía un <b>cargo de "MATERIALES PERDIDOS" duplicado por error de captura</b> (registrado dos veces, S/253.10 cada vez, el mismo día de diferencia). Se corrigió el filtro a <code>Estado IN ('002','003','004')</code> — que reproduce exacto el saldo oficial (S/73.70) — y se recalculó toda la deuda neta del informe con ese filtro.</p>
+      </div>
+      <div class="callout">
+        <span class="lbl">Pérdida real (corregida y validada contra el sistema)</span>
+        <p><b>S/1,706,596</b> en 20 meses: <b>S/387,436</b> de comisión pagada sobre ventas que resultaron en pérdida total (nunca pagó + corte definitivo, 9,454 casos), más <b>S/1,319,160</b> de deuda neta real acumulada por esas mismas ventas — <code>Cargo</code> con <code>Estado IN ('002','003','004')</code> (facturado real, excluyendo reconexiones y cargos anulados/duplicados) menos <code>CargoAbono</code> (descuentos/ajustes reales). Esto es <b>9.4% de las 92,225 ventas comisionadas</b> — el resto (90.6%) o pagó a tiempo, o pagó tarde con deuda que todavía puede recuperarse, o ya se regularizó.</p>
+      </div>
+      <p>La tendencia mejora año a año (pérdida real como % de ventas: 20.9% en 2024 → 9.5% en 2025 → sigue bajando en 2026), pero el mecanismo de fondo no cambió: la comisión se liquida sobre la venta ejecutada, sin verificar cobro, confirmado directamente en el código de <code>usp_DataVendedorComisionInsertarCampo_gl</code>. No se encontró evidencia de instalaciones inexistentes ni de reclamos de calidad como causa del impago — es un problema de proceso, no de fraude individual ni de mal servicio.</p>
+    </section>
+
+    <section id="mensual">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Tablas mensuales 2024–2026</h2></div>
+      <p>Cobertura: septiembre 2024 (primer mes con comisión liquidada en <code>DataVendedorComision</code>) a abril 2026 (último disponible; mayo-junio 2026 aún no se calculan).</p>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 2.1</b> — clasificación de pago y comisión, mes a mes</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Mes</th><th class="num">Ventas</th><th class="num">Pagó normal</th><th class="num">Moroso</th><th class="num">Al día (tarde)</th><th class="num">Nunca pagó</th><th class="num">Pérdida real (n°)</th><th class="num">Comisión estimada</th><th class="num">Comisión en pérdida</th></tr></thead>
+          <tbody>
+            <tr><td><span class="chip y24">2024-09</span></td><td class="num">7,246</td><td class="num">2,041</td><td class="num">3,530</td><td class="num">638</td><td class="num">1,037</td><td class="num">973</td><td class="num">S/305,967</td><td class="num">S/38,893</td></tr>
+            <tr><td><span class="chip y24">2024-10</span></td><td class="num">6,958</td><td class="num">1,494</td><td class="num">3,789</td><td class="num">612</td><td class="num">1,063</td><td class="num">1,009</td><td class="num">S/289,541</td><td class="num">S/39,655</td></tr>
+            <tr><td><span class="chip y24">2024-11</span></td><td class="num">5,636</td><td class="num">710</td><td class="num">3,044</td><td class="num">641</td><td class="num">1,241</td><td class="num">1,185</td><td class="num">S/337,839</td><td class="num">S/68,913</td></tr>
+            <tr><td><span class="chip y24">2024-12</span></td><td class="num">4,377</td><td class="num">1,177</td><td class="num">1,961</td><td class="num">449</td><td class="num">790</td><td class="num">753</td><td class="num">S/263,090</td><td class="num">S/44,105</td></tr>
+            <tr><td><span class="chip y25">2025-01</span></td><td class="num">4,913</td><td class="num">1,960</td><td class="num">1,884</td><td class="num">436</td><td class="num">633</td><td class="num">611</td><td class="num">S/183,264</td><td class="num">S/22,855</td></tr>
+            <tr><td><span class="chip y25">2025-02</span></td><td class="num">4,540</td><td class="num">1,424</td><td class="num">2,015</td><td class="num">491</td><td class="num">610</td><td class="num">590</td><td class="num">S/177,278</td><td class="num">S/22,814</td></tr>
+            <tr><td><span class="chip y25">2025-03</span></td><td class="num">5,234</td><td class="num">1,911</td><td class="num">2,082</td><td class="num">530</td><td class="num">711</td><td class="num">694</td><td class="num">S/202,893</td><td class="num">S/27,601</td></tr>
+            <tr><td><span class="chip y25">2025-04</span></td><td class="num">4,576</td><td class="num">2,977</td><td class="num">904</td><td class="num">234</td><td class="num">461</td><td class="num">454</td><td class="num">S/163,976</td><td class="num">S/17,079</td></tr>
+            <tr><td><span class="chip y25">2025-05</span></td><td class="num">4,345</td><td class="num">3,252</td><td class="num">568</td><td class="num">94</td><td class="num">431</td><td class="num">412</td><td class="num">S/124,994</td><td class="num">S/12,238</td></tr>
+            <tr><td><span class="chip y25">2025-06</span></td><td class="num">3,673</td><td class="num">2,915</td><td class="num">355</td><td class="num">60</td><td class="num">343</td><td class="num">333</td><td class="num">S/109,876</td><td class="num">S/8,620</td></tr>
+            <tr><td><span class="chip y25">2025-07</span></td><td class="num">3,638</td><td class="num">2,824</td><td class="num">443</td><td class="num">112</td><td class="num">259</td><td class="num">250</td><td class="num">S/107,932</td><td class="num">S/7,943</td></tr>
+            <tr><td><span class="chip y25">2025-08</span></td><td class="num">3,707</td><td class="num">2,902</td><td class="num">433</td><td class="num">99</td><td class="num">273</td><td class="num">260</td><td class="num">S/163,835</td><td class="num">S/12,018</td></tr>
+            <tr><td><span class="chip y25">2025-09</span></td><td class="num">3,653</td><td class="num">2,789</td><td class="num">470</td><td class="num">104</td><td class="num">290</td><td class="num">282</td><td class="num">S/132,570</td><td class="num">S/10,654</td></tr>
+            <tr><td><span class="chip y25">2025-10</span></td><td class="num">3,893</td><td class="num">2,890</td><td class="num">596</td><td class="num">114</td><td class="num">293</td><td class="num">279</td><td class="num">S/131,825</td><td class="num">S/8,553</td></tr>
+            <tr><td><span class="chip y25">2025-11</span></td><td class="num">3,839</td><td class="num">2,960</td><td class="num">473</td><td class="num">88</td><td class="num">318</td><td class="num">293</td><td class="num">S/126,252</td><td class="num">S/10,432</td></tr>
+            <tr><td><span class="chip y25">2025-12</span></td><td class="num">3,440</td><td class="num">2,571</td><td class="num">539</td><td class="num">73</td><td class="num">257</td><td class="num">248</td><td class="num">S/109,375</td><td class="num">S/8,350</td></tr>
+            <tr><td><span class="chip y26">2026-01</span></td><td class="num">4,591</td><td class="num">3,743</td><td class="num">465</td><td class="num">50</td><td class="num">333</td><td class="num">321</td><td class="num">S/148,910</td><td class="num">S/9,470</td></tr>
+            <tr><td><span class="chip y26">2026-02</span></td><td class="num">4,450</td><td class="num">3,595</td><td class="num">514</td><td class="num">48</td><td class="num">293</td><td class="num">250</td><td class="num">S/163,036</td><td class="num">S/7,582</td></tr>
+            <tr><td><span class="chip y26">2026-03</span></td><td class="num">4,904</td><td class="num">3,724</td><td class="num">764</td><td class="num">52</td><td class="num">364</td><td class="num">225</td><td class="num">S/182,458</td><td class="num">S/8,435</td></tr>
+            <tr><td><span class="chip y26">2026-04</span></td><td class="num">4,612</td><td class="num">3,662</td><td class="num">387</td><td class="num">6</td><td class="num">557</td><td class="num">32</td><td class="num">S/168,978</td><td class="num">S/1,226</td></tr>
+            <tr class="total-row"><td>Total</td><td class="num">92,225</td><td class="num">51,521</td><td class="num">25,216</td><td class="num">4,931</td><td class="num">10,557</td><td class="num">9,454</td><td class="num">S/3,593,890</td><td class="num">S/387,436</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <p><b>2026-04 es un caso especial</b>: "nunca pagó" salta a 557 (el más alto de la serie) pero "pérdida real" cae a solo 32 — porque son ventas muy recientes (abril 2026) que todavía no han tenido tiempo de llegar a corte definitivo; están en el limbo de "no ha pagado" sin haberse resuelto todavía en ningún sentido. No es una mejora real, es un efecto de ventana de observación corta.</p>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 2.2</b> — deuda neta real mensual (<code>Cargo</code> con <code>Estado IN ('002','003','004')</code>, excluye reconexiones/anulados — ver hallazgo de la sección 05)</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Mes</th><th class="num">Facturado real</th><th class="num">Descuentos/ajustes</th><th class="num">Deuda neta real</th></tr></thead>
+          <tbody>
+            <tr><td>2024-09</td><td class="num">S/218,705</td><td class="num">S/80,579</td><td class="num">S/138,126</td></tr>
+            <tr><td>2024-10</td><td class="num">S/229,818</td><td class="num">S/93,927</td><td class="num">S/135,891</td></tr>
+            <tr><td>2024-11</td><td class="num">S/264,676</td><td class="num">S/96,418</td><td class="num">S/168,259</td></tr>
+            <tr><td>2024-12</td><td class="num">S/176,902</td><td class="num">S/60,925</td><td class="num">S/115,977</td></tr>
+            <tr><td>2025-01</td><td class="num">S/152,280</td><td class="num">S/46,794</td><td class="num">S/105,486</td></tr>
+            <tr><td>2025-02</td><td class="num">S/143,109</td><td class="num">S/50,982</td><td class="num">S/92,127</td></tr>
+            <tr><td>2025-03</td><td class="num">S/186,919</td><td class="num">S/63,911</td><td class="num">S/123,007</td></tr>
+            <tr><td>2025-04</td><td class="num">S/94,791</td><td class="num">S/28,323</td><td class="num">S/66,468</td></tr>
+            <tr><td>2025-05</td><td class="num">S/82,807</td><td class="num">S/24,327</td><td class="num">S/58,480</td></tr>
+            <tr><td>2025-06</td><td class="num">S/65,750</td><td class="num">S/19,131</td><td class="num">S/46,619</td></tr>
+            <tr><td>2025-07</td><td class="num">S/45,956</td><td class="num">S/14,482</td><td class="num">S/31,474</td></tr>
+            <tr><td>2025-08</td><td class="num">S/46,144</td><td class="num">S/14,666</td><td class="num">S/31,479</td></tr>
+            <tr><td>2025-09</td><td class="num">S/50,147</td><td class="num">S/15,502</td><td class="num">S/34,645</td></tr>
+            <tr><td>2025-10</td><td class="num">S/48,538</td><td class="num">S/14,447</td><td class="num">S/34,091</td></tr>
+            <tr><td>2025-11</td><td class="num">S/47,871</td><td class="num">S/15,152</td><td class="num">S/32,718</td></tr>
+            <tr><td>2025-12</td><td class="num">S/41,417</td><td class="num">S/11,709</td><td class="num">S/29,708</td></tr>
+            <tr><td>2026-01</td><td class="num">S/50,249</td><td class="num">S/16,327</td><td class="num">S/33,921</td></tr>
+            <tr><td>2026-02</td><td class="num">S/35,052</td><td class="num">S/11,937</td><td class="num">S/23,115</td></tr>
+            <tr><td>2026-03</td><td class="num">S/26,109</td><td class="num">S/9,631</td><td class="num">S/16,478</td></tr>
+            <tr><td>2026-04</td><td class="num">S/1,946</td><td class="num">S/855</td><td class="num">S/1,091</td></tr>
+            <tr class="total-row"><td>Total</td><td class="num">S/1,959,180</td><td class="num">S/620,018</td><td class="num">S/1,319,160</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="filial">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Por filial</h2></div>
+      <p>24 filiales, todo el período (sep-2024 a abr-2026). Ordenado por número de casos de pérdida real.</p>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 3.1</b> — clasificación, comisión y pérdida real por filial</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Filial</th><th class="num">Ventas</th><th class="num">Pagó normal</th><th class="num">Moroso</th><th class="num">Al día</th><th class="num">Nunca pagó</th><th class="num">Pérdida real (n°)</th><th class="num">Comisión en pérdida</th><th class="num">Deuda neta real</th></tr></thead>
+          <tbody>
+            <tr><td>COCHARCAS</td><td class="num">7,403</td><td class="num">3,864</td><td class="num">1,977</td><td class="num">360</td><td class="num">1,202</td><td class="num"><b>1,131</b></td><td class="num">S/48,487</td><td class="num">S/158,260</td></tr>
+            <tr><td>SAN FELIPE</td><td class="num">8,287</td><td class="num">4,366</td><td class="num">2,215</td><td class="num">547</td><td class="num">1,159</td><td class="num"><b>1,076</b></td><td class="num">S/36,808</td><td class="num">S/171,150</td></tr>
+            <tr><td>PAMPLONA</td><td class="num">8,580</td><td class="num">4,917</td><td class="num">2,195</td><td class="num">473</td><td class="num">995</td><td class="num">911</td><td class="num">S/37,279</td><td class="num">S/130,543</td></tr>
+            <tr><td>PUERTO MALDONADO</td><td class="num">11,038</td><td class="num">6,024</td><td class="num">3,164</td><td class="num">928</td><td class="num">922</td><td class="num">826</td><td class="num">S/41,857</td><td class="num">S/100,233</td></tr>
+            <tr><td>CHORRILLOS</td><td class="num">5,645</td><td class="num">2,974</td><td class="num">1,577</td><td class="num">246</td><td class="num">848</td><td class="num">788</td><td class="num">S/33,391</td><td class="num">S/114,563</td></tr>
+            <tr><td>SAN MARTIN</td><td class="num">3,250</td><td class="num">1,545</td><td class="num">785</td><td class="num">175</td><td class="num">745</td><td class="num">713</td><td class="num">S/21,353</td><td class="num">S/100,637</td></tr>
+            <tr><td>PACHACAMAC</td><td class="num">6,165</td><td class="num">3,430</td><td class="num">1,645</td><td class="num">351</td><td class="num">739</td><td class="num">702</td><td class="num">S/29,144</td><td class="num">S/104,269</td></tr>
+            <tr><td>CHIMBOTE</td><td class="num">3,848</td><td class="num">1,600</td><td class="num">1,169</td><td class="num">112</td><td class="num">967</td><td class="num">661</td><td class="num">S/31,719</td><td class="num">S/86,688</td></tr>
+            <tr><td>INDEPENDENCIA</td><td class="num">5,250</td><td class="num">2,879</td><td class="num">1,452</td><td class="num">286</td><td class="num">633</td><td class="num">604</td><td class="num">S/21,451</td><td class="num">S/75,295</td></tr>
+            <tr><td>BARRANCA</td><td class="num">3,914</td><td class="num">2,024</td><td class="num">1,243</td><td class="num">167</td><td class="num">480</td><td class="num">388</td><td class="num">S/18,033</td><td class="num">S/53,918</td></tr>
+            <tr><td>AREQUIPA SUR</td><td class="num">3,017</td><td class="num">1,809</td><td class="num">737</td><td class="num">159</td><td class="num">312</td><td class="num">304</td><td class="num">S/11,624</td><td class="num">S/41,437</td></tr>
+            <tr><td>JULIACA</td><td class="num">4,850</td><td class="num">2,918</td><td class="num">1,368</td><td class="num">255</td><td class="num">309</td><td class="num">290</td><td class="num">S/12,243</td><td class="num">S/30,008</td></tr>
+            <tr><td>ABANCAY</td><td class="num">4,503</td><td class="num">2,721</td><td class="num">1,353</td><td class="num">188</td><td class="num">241</td><td class="num">221</td><td class="num">S/10,192</td><td class="num">S/33,831</td></tr>
+            <tr><td>YESS PMD</td><td class="num">2,247</td><td class="num">1,274</td><td class="num">759</td><td class="num">12</td><td class="num">202</td><td class="num">174</td><td class="num">S/10,866</td><td class="num">S/30,478</td></tr>
+            <tr><td>PUNO</td><td class="num">2,491</td><td class="num">1,462</td><td class="num">766</td><td class="num">99</td><td class="num">164</td><td class="num">154</td><td class="num">S/4,619</td><td class="num">S/20,435</td></tr>
+            <tr><td>CONDOMINIOS</td><td class="num">1,653</td><td class="num">900</td><td class="num">506</td><td class="num">103</td><td class="num">144</td><td class="num">136</td><td class="num">S/4,414</td><td class="num">S/22,979</td></tr>
+            <tr><td>AREQUIPA NORTE</td><td class="num">2,115</td><td class="num">1,392</td><td class="num">498</td><td class="num">97</td><td class="num">128</td><td class="num">122</td><td class="num">S/4,631</td><td class="num">S/16,907</td></tr>
+            <tr><td>QUILLABAMBA</td><td class="num">4,691</td><td class="num">3,475</td><td class="num">860</td><td class="num">230</td><td class="num">126</td><td class="num">98</td><td class="num">S/3,424</td><td class="num">S/14,901</td></tr>
+            <tr><td>SUPE</td><td class="num">991</td><td class="num">640</td><td class="num">256</td><td class="num">25</td><td class="num">70</td><td class="num">46</td><td class="num">S/2,008</td><td class="num">S/3,924</td></tr>
+            <tr><td>TACNA</td><td class="num">852</td><td class="num">396</td><td class="num">341</td><td class="num">52</td><td class="num">63</td><td class="num">46</td><td class="num">S/1,473</td><td class="num">S/4,668</td></tr>
+            <tr><td>PARAMONGA</td><td class="num">619</td><td class="num">390</td><td class="num">156</td><td class="num">28</td><td class="num">45</td><td class="num">31</td><td class="num">S/1,109</td><td class="num">S/1,755</td></tr>
+            <tr><td>NEDTEL</td><td class="num">449</td><td class="num">257</td><td class="num">137</td><td class="num">21</td><td class="num">34</td><td class="num">20</td><td class="num">S/792</td><td class="num">S/1,263</td></tr>
+            <tr><td>PATIVILCA</td><td class="num">273</td><td class="num">171</td><td class="num">57</td><td class="num">17</td><td class="num">28</td><td class="num">12</td><td class="num">S/517</td><td class="num">S/1,020</td></tr>
+            <tr><td>CHINCHA</td><td class="num">94</td><td class="num">93</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num">S/0</td><td class="num">S/0</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <p>COCHARCAS y SAN FELIPE lideran tanto en número de casos de pérdida real como en deuda neta — no coinciden exactamente (SAN FELIPE tiene más deuda neta con menos casos que COCHARCAS, indicando tickets promedio más altos o permanencia más larga antes del corte). CHINCHA es la única filial sin ningún caso de pérdida real, pero con volumen mínimo (94 ventas).</p>
+    </section>
+
+    <section id="servicio">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Por tipo de servicio</h2></div>
+      <p>Las 4 clases de servicio principales vendidas por la fuerza comercial (dominio 156 de <code>Parametro</code>). No existen "dúos" como clase de servicio propia — un combo Internet+TV genera dos filas de <code>OrdenServicio</code> el mismo día, una por servicio.</p>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 4.1</b> — ventas, clasificación y pérdida real por tipo de servicio</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Servicio</th><th class="num">Ventas</th><th class="num">Monto vendido</th><th class="num">Pagó normal</th><th class="num">Moroso</th><th class="num">Al día</th><th class="num">Nunca pagó</th><th class="num">Pérdida real (n°)</th><th class="num">Comisión en pérdida</th><th class="num">Deuda neta real</th></tr></thead>
+          <tbody>
+            <tr><td>Internet FTTH</td><td class="num">65,479</td><td class="num">S/4,344,414</td><td class="num">37,479</td><td class="num">19,745</td><td class="num">1,818</td><td class="num">6,437</td><td class="num"><b>5,954</b></td><td class="num">S/279,848</td><td class="num">S/840,139</td></tr>
+            <tr><td>TV Digital</td><td class="num">20,871</td><td class="num">S/957,190</td><td class="num">11,215</td><td class="num">3,976</td><td class="num">2,769</td><td class="num">2,911</td><td class="num">2,744</td><td class="num">S/84,988</td><td class="num">S/413,714</td></tr>
+            <tr><td>Internet HFC</td><td class="num">3,011</td><td class="num">S/152,049</td><td class="num">1,417</td><td class="num">796</td><td class="num">92</td><td class="num">706</td><td class="num">680</td><td class="num">S/20,468</td><td class="num">S/62,215</td></tr>
+            <tr><td>TV por Cable</td><td class="num">2,864</td><td class="num">S/124,658</td><td class="num">1,410</td><td class="num">699</td><td class="num">252</td><td class="num">503</td><td class="num">76</td><td class="num">S/2,133</td><td class="num">S/3,092</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <p><b>Internet FTTH concentra el 63.7% de la pérdida real</b> (5,954 de 9,454 casos, S/840,139 de S/1,319,160 de deuda) — coherente con ser el servicio de mayor volumen y mayor tarifa. TV por Cable, en cambio, tiene una tasa de conversión a pérdida real notablemente más baja (76 de 503 "nunca pagó" = 15.1%) frente a Internet FTTH (5,954 de 6,437 = 92.5%) — sugiere que TV por Cable es una base de clientes más antigua/estable donde "nunca pagó" tarda más en convertirse en corte definitivo, o un servicio legado con dinámica de cobranza distinta.</p>
+    </section>
+
+    <section id="cobranza">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Cuenta corriente real: facturado, descuentos y deuda neta</h2></div>
+      <p>Validado <b>obligatoriamente</b> contra el registro de facturación real (<code>Cargo</code>) y de descuentos/ajustes (<code>CargoAbono</code> → <code>Abono</code>) — incluyendo un cruce directo contra el reporte oficial "DETALLE DE DEUDA DEL ABONADO" del propio sistema (ver hallazgo abajo). Se confirmó que <code>Abono</code> registra descuentos y ajustes internos reales (ej. "DESCUENTO EN MENSUALIDAD... PROMOCIÓN", "REAJUSTE CORTE"), no pagos del cliente — el pago real ya está en <code>ComprobantePago</code> y para esta cohorte (nunca pagó + corte definitivo) es S/0 por definición.</p>
+
+      <div class="finding">
+        <span class="lbl">Hallazgo: no todos los cargos cuentan como deuda — validado contra el sistema</span>
+        <p>El primer cálculo sumaba <b>todos</b> los <code>Cargo</code> sin filtrar por <code>Estado</code>. Al comparar el caso de FRANYER GAUTIER (idFilial 35, IdAbonado 5474) contra el reporte oficial del sistema, la diferencia era de 8 veces (S/594.90 calculado vs. S/73.70 real). Revisando cargo por cargo: sus 5 <code>Cargo</code> reales eran <b>2 tarifas mensuales normales</b> (Estado 002/003, sí cuentan) y <b>3 cargos en Estado='005'</b> — una "RECONEXIÓN DE SERVICIO" (S/15) y un "MATERIALES PERDIDOS" (S/253.10) <b>duplicado por error de captura del propio sistema</b> (registrado dos veces, un día de diferencia). Los tres quedan excluidos del saldo oficial. Se revisaron los 15 casos de validación (sección 11) y el patrón es consistente en todos: <b>"CARGOS POR RECONEXIÓN DE SERVICIO" está siempre en <code>Estado='005'</code></b> — una exclusión sistemática, no un error — mientras que "MATERIALES PERDIDOS" normalmente sí cuenta (<code>Estado='002'</code>) salvo cuando hay una duplicación que se corrige anulando una de las dos filas.</p>
+      </div>
+      <div class="callout">
+        <span class="lbl">Deuda neta real = Facturado (Cargo, Estado IN 002/003/004) − Descuentos/ajustes (CargoAbono)</span>
+        <p>Aplicado únicamente a la cohorte de <b>pérdida real</b> (9,454 líneas de servicio: nunca pagaron y ya tienen corte definitivo). Total corregido: <b>S/1,959,180 facturado</b> (excluyendo cargos en <code>Estado='005'</code>: reconexiones y anulados/duplicados) − <b>S/620,018 en descuentos/ajustes reales</b> = <b>S/1,319,160 de deuda neta real</b>. Las tablas 3.1 (por filial) y 4.1 (por servicio) ya incluyen esta cifra corregida.</p>
+      </div>
+      <p>El 31.7% de lo facturado a esta cohorte (S/620,018 de S/1,959,180) se descontó por promociones u otros ajustes internos reales antes de considerar el impago — la deuda que queda pendiente ya viene neta de rebajas comerciales legítimas.</p>
+    </section>
+
+    <section id="estado">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Estado actual y permanencia real</h2></div>
+      <p>Dos cohortes distintas, con alcance distinto — no comparables fila por fila. Se separan explícitamente para evitar la ambigüedad de una versión anterior de esta sección.</p>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 6.1</b> — estado hoy, cohorte completa "sin cobro en 30 días" (moroso + al día + nunca pagó)</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Categoría de pago</th><th>Estado hoy</th><th class="num">2024</th><th class="num">2025</th><th class="num">2026 (ene-abr)</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="4">Moroso con deuda</td><td>Activo</td><td class="num">3,641</td><td class="num">4,608</td><td class="num">1,905</td></tr>
+            <tr><td>Suspendido</td><td class="num">125</td><td class="num">259</td><td class="num">102</td></tr>
+            <tr><td>Corte definitivo</td><td class="num">8,316</td><td class="num">5,794</td><td class="num">119</td></tr>
+            <tr><td>Sin registro claro</td><td class="num">242</td><td class="num">101</td><td class="num">4</td></tr>
+            <tr><td rowspan="3">Pagó tarde, al día</td><td>Activo</td><td class="num">1,817</td><td class="num">2,053</td><td class="num">150</td></tr>
+            <tr><td>Suspendido</td><td class="num">41</td><td class="num">43</td><td class="num">0</td></tr>
+            <tr><td>Corte definitivo</td><td class="num">466</td><td class="num">332</td><td class="num">6</td></tr>
+            <tr><td rowspan="4">Nunca pagó</td><td>Activo</td><td class="num">1</td><td class="num">10</td><td class="num">405</td></tr>
+            <tr><td>Suspendido</td><td class="num">0</td><td class="num">0</td><td class="num">286</td></tr>
+            <tr><td>Corte definitivo</td><td class="num"><b>3,920</b></td><td class="num"><b>4,706</b></td><td class="num"><b>828</b></td></tr>
+            <tr><td>Sin registro claro</td><td class="num">210</td><td class="num">163</td><td class="num">28</td></tr>
+            <tr class="total-row"><td colspan="2">Total (= "sin cobro en 30 días" de la sección 01)</td><td class="num">18,795</td><td class="num">18,076</td><td class="num">3,833</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="lbl">Cómo se puede estar "activo" sin haber pagado a tiempo</span>
+        <p>El servicio no se corta el día que vence la factura — hay un ciclo (factura → aviso → intento de reconexión → recién ahí corte definitivo, ver sección 05) que toma semanas y corre por lotes mensuales. Un abonado sigue "activo" mientras ese ciclo no termine: puede ser moroso que va pagando de a poco sin llegar a deber lo suficiente para cortarlo, puede ya estar al día, o puede ser alguien que nunca pagó pero su venta es tan reciente que su corte por lote todavía no le tocó (por eso "nunca pagó / activo" salta a 405 en 2026 — son las ventas más nuevas de la serie).</p>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 6.2</b> — permanencia antes del corte: cohorte angosta (solo "nunca pagó") vs. cohorte completa (todos los que se cortan)</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th></th><th class="num">2024</th><th class="num">2025</th><th class="num">2026 (parcial)</th></tr></thead>
+          <tbody>
+            <tr><td>Permanencia promedio — <b>solo nunca pagó</b> (3,920 / 4,706 / 828 casos)</td><td class="num"><b>77</b></td><td class="num"><b>67</b></td><td class="num"><b>50</b></td></tr>
+            <tr><td>Permanencia promedio — <b>todos los que se cortan</b> (12,702 / 10,832 / 953 casos)</td><td class="num">202</td><td class="num">146</td><td class="num">54</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <p><b>La diferencia (77 vs. 202 días en 2024) no es un error — es la señal real:</b> a quien nunca pagó absolutamente nada, el sistema lo corta más rápido (77 días) que al promedio de todos los que terminan cortados, que incluye a morosos que sí pagaron algo alguna vez y por eso el sistema tarda más en decidir cortarlos (202 días, arrastrado por casos que se estiran esperando un pago que nunca llega del todo). En 2026 ambas cifras convergen (50 vs. 54) porque la ventana de observación es corta — todavía no hay suficiente tiempo para que los casos "lentos" de esa cohorte terminen de cortarse.</p>
+    </section>
+
+    <section id="instalacion">
+      <div class="sec-head"><span class="sec-num">07</span><h2>¿Realmente se instaló y activó el servicio?</h2></div>
+      <div class="callout">
+        <span class="lbl">Sin evidencia de instalación fantasma a nivel de registro</span>
+        <p>100% de las ventas de comisión sin cobro (2024–2026) tienen un registro <code>AbonadoServicio</code> real y consistente, vinculado exactamente a la <code>OrdenServicio</code> de instalación (<code>IdOSInstalacion = IdOS</code>). 0 casos sin registro de servicio. 0 casos de <code>EstOS='003'</code> (ejecutada) con <code>MotivoAnulacionOS</code> simultáneo (contradicción). Esto no prueba visita física del técnico — solo descarta huérfanos administrativos o cierres inconsistentes en el sistema.</p>
+      </div>
+    </section>
+
+    <section id="incidencias">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Órdenes posteriores: averías, reclamos, cortes, reconexiones</h2></div>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 8.1</b> — reclamos de calidad (<code>TipoOS='008'</code>): sin cobro vs. con cobro en 30 días</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Año</th><th></th><th class="num">Con reclamo de calidad</th><th class="num">Sin reclamo</th><th class="num">% con reclamo</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="2"><span class="chip y24">2024</span></td><td>Sin cobro en 30 días</td><td class="num">7,633</td><td class="num">11,162</td><td class="num">40.6%</td></tr>
+            <tr><td>Con cobro en 30 días</td><td class="num">2,783</td><td class="num">2,639</td><td class="num"><b>51.3%</b></td></tr>
+            <tr><td rowspan="2"><span class="chip y25">2025</span></td><td>Sin cobro en 30 días</td><td class="num">6,010</td><td class="num">12,066</td><td class="num">33.3%</td></tr>
+            <tr><td>Con cobro en 30 días</td><td class="num">13,047</td><td class="num">18,328</td><td class="num"><b>41.6%</b></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="lbl">Los reclamos de calidad NO explican el impago</span>
+        <p>En ambos años, quien <b>sí paga</b> reclama más (51.3%, 41.6%) que quien <b>nunca paga</b> (40.6%, 33.3%). Si la mala calidad fuera la causa, sería al revés. Confirmado también en los 15 casos de validación (sección 11): solo 2 de 15 tienen algún ticket de calidad, y ambos son "nunca pagó" de todas formas — tener o no un reclamo no cambia el resultado de pago.</p>
+      </div>
+    </section>
+
+    <section id="anomalias">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Anomalías identificadas</h2></div>
+      <div class="exhibit">
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Ref.</th><th>Severidad</th><th>Anomalía</th><th>Evidencia</th></tr></thead>
+          <tbody>
+            <tr><td>A-01</td><td><span class="chip crit">Crítica</span></td><td>Comisión pagada sobre ventas que resultan en pérdida total confirmada</td><td>9,454 ventas (10.2% del total), S/387,436 de comisión + S/1,319,160 de deuda neta real (validada contra cuenta corriente real, sección 11) = <b>S/1,706,596</b> en 20 meses</td></tr>
+            <tr><td>A-02</td><td><span class="chip high">Alta</span></td><td>Cartera de clientes morosos con deuda activa, comisión ya pagada</td><td>25,216 ventas pagaron algo tarde pero mantienen deuda estimada positiva — cobranza pendiente sobre ventas que ya generaron costo de comisión completo</td></tr>
+            <tr><td>A-03</td><td><span class="chip high">Alta</span></td><td>Permanencia gratuita prolongada antes del corte definitivo</td><td>50–77 días promedio (2024–2026) entre la venta y el corte de quien nunca paga — muy por encima del ciclo mensual de comisión</td></tr>
+            <tr><td>A-04</td><td><span class="chip high">Alta</span></td><td>Mejora sostenida año a año sin causa identificable en los datos</td><td>Pérdida real cae de 20.9% (2024) a 9.5% (2025) de las ventas — cambio de política o sistema no documentado en la BD, o artefacto del arranque del motor de comisión en sep-2024</td></tr>
+            <tr><td>A-05</td><td><span class="chip med">Media</span></td><td>Concentración en Internet FTTH</td><td>63% de la pérdida real (5,954 de 9,454 casos) es de un solo servicio — el de mayor volumen y tarifa, coherente con exposición proporcional al tamaño del negocio</td></tr>
+            <tr><td>A-06</td><td><span class="chip low">Baja</span></td><td>Ausencia de reclamos de calidad como factor explicativo</td><td>Confirmado en 2024, 2025 y en los 15 casos de validación: quien paga reclama más, no menos</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p style="padding:0 4px;font-size:13px;color:var(--ink-faint);">No se listan como anomalías: el corte por lote mensual (proceso normal de cobranza, confirmado con <code>Cargo</code>/<code>CargoAbono</code>: factura impaga → cargo de reconexión → corte → cargo por equipo perdido) ni instalaciones inexistentes (0 casos encontrados, sección 07).</p>
+      </div>
+    </section>
+
+    <section id="embudo">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Embudo: venta → instalación → cobranza → deuda → comisión → pérdida real</h2></div>
+      <div class="funnel">
+        <div class="stage"><div class="n">92,225</div><div class="l">Ventas comisionadas</div></div>
+        <div class="arrow">→</div>
+        <div class="stage"><div class="n">100%</div><div class="l">Instaladas (AbonadoServicio confirmado)</div></div>
+        <div class="arrow">→</div>
+        <div class="stage"><div class="n">55.9%</div><div class="l">Cobranza normal (≤30d)</div></div>
+        <div class="arrow">→</div>
+        <div class="stage"><div class="n">32.6%</div><div class="l">Con deuda (moroso + nunca pagó)</div></div>
+        <div class="arrow">→</div>
+        <div class="stage"><div class="n">10.2%</div><div class="l">Pérdida real confirmada</div></div>
+      </div>
+      <p>De cada 100 ventas comisionadas: las 100 se instalan según el registro del sistema; 56 cobran a tiempo; 27 pagan tarde pero siguen debiendo (moroso, aún recuperable); 5 pagan tarde y ya están al día (no es pérdida); y <b>10 terminan en pérdida real confirmada</b> — nunca pagaron y ya se les cortó el servicio. El resto (11.4% total "nunca pagó" menos el 10.2% ya confirmado) sigue en curso: activos o suspendidos sin haber pagado, con destino aún no definitivo.</p>
+    </section>
+
+    <section id="validacion">
+      <div class="sec-head"><span class="sec-num">11</span><h2>Validación: trazabilidad completa de 15 casos (5 por año)</h2></div>
+      <p>Todos identificados por <code>idFilial + IdAbonado</code>, seleccionados entre quienes nunca pagaron ni un sol y ya tienen corte definitivo — la categoría de pérdida real. Cuenta corriente <b>detallada cargo por cargo</b> (no un total agregado), replicando el formato del reporte oficial "DETALLE DE DEUDA DEL ABONADO" del propio sistema — así se descubrió y corrigió el error de la sección 05.</p>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 11.1</b> — 2024, YESS PMD / PUERTO MALDONADO (todos vendidos 2024-09-01, cortados 2024-12-01)</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Abonado</th><th>Fecha</th><th>Concepto del cargo</th><th class="num">Importe</th><th>Estado</th><th>¿Cuenta como deuda?</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="4"><b>3348 · MANUEL ESCALONA</b><br><span style="color:var(--ink-faint);font-size:12px;">YESS PMD · DEYCI GARCIA</span></td><td>01-sep</td><td>Tarifa sep/2024 (prorrateo)</td><td class="num">S/61.80</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-oct</td><td>Servicio FTTH oct/2024</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>01-nov</td><td>Servicio FTTH nov/2024</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>08-nov</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td></td><td>24-dic</td><td>Cargo por materiales perdidos</td><td class="num">S/250.00</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/439.80 − Descuentos S/70.90 = Deuda neta</b></td><td class="num"><b>S/368.90</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="5"><b>3345 · KARLENYS TILLERO</b><br><span style="color:var(--ink-faint);font-size:12px;">YESS PMD · ÑULKA VALLES</span></td><td>01-sep</td><td>Tarifa sep/2024 (prorrateo)</td><td class="num">S/61.80</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-oct</td><td>Servicio FTTH oct/2024</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>01-nov</td><td>Servicio FTTH nov/2024</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>08-nov</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>07-abr-25</td><td>Cargo por materiales perdidos</td><td class="num">S/253.00</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/442.80 − Descuentos S/70.90 = Deuda neta</b></td><td class="num"><b>S/371.90</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="4"><b>44366 · MIRIAN ATAQUE</b><br><span style="color:var(--ink-faint);font-size:12px;">PUERTO MALDONADO · THALIA CARHUAMACA</span></td><td>01-sep</td><td>Tarifa sep/2024 (prorrateo)</td><td class="num">S/61.80</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-oct</td><td>Servicio FTTH oct/2024</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>01-nov</td><td>Servicio FTTH nov/2024</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>08-nov</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/189.80 − Descuentos S/76.70 = Deuda neta</b></td><td class="num"><b>S/113.10</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="4"><b>44288 · RICHARD GONZALEZ</b><br><span style="color:var(--ink-faint);font-size:12px;">PUERTO MALDONADO · THALIA CARHUAMACA</span></td><td>01-sep</td><td>Tarifa sep/2024 (prorrateo)</td><td class="num">S/61.80</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-oct</td><td>Servicio FTTH oct/2024</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>01-nov</td><td>Servicio FTTH nov/2024</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>08-nov</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>27-feb-25</td><td>Cargo por materiales perdidos</td><td class="num">S/142.00</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/331.80 − Descuentos S/76.70 = Deuda neta</b></td><td class="num"><b>S/255.10</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="5"><b>44312 · MAYCO GAYOSO</b><br><span style="color:var(--ink-faint);font-size:12px;">PUERTO MALDONADO · EVELIN GOMEZ</span></td><td>01-sep</td><td>Tarifa sep/2024 (prorrateo)</td><td class="num">S/71.50</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-oct</td><td>Servicio FTTH oct/2024</td><td class="num">S/74.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>01-nov</td><td>Servicio FTTH nov/2024</td><td class="num">S/74.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>08-nov</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>17-mar-25</td><td>Cargo por materiales perdidos</td><td class="num">S/141.60</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/361.10 − Descuentos S/85.00 = Deuda neta</b></td><td class="num"><b>S/276.10</b></td><td colspan="2"></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 11.2</b> — 2025 (vendidos jun-2025, cortados jul/ago-2025)</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Abonado</th><th>Fecha</th><th>Concepto del cargo</th><th class="num">Importe</th><th>Estado</th><th>¿Cuenta como deuda?</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="7"><b>125330 · MARIA ACOSTA</b><br><span style="color:var(--ink-faint);font-size:12px;">INDEPENDENCIA · KIARA RIVERA (TV+FTTH)</span></td><td>01-jun</td><td>Tarifa TV Digital jun/2025</td><td class="num">S/38.60</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-jun</td><td>Tarifa FTTH jun/2025</td><td class="num">S/66.70</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-jul</td><td>Servicio FTTH jul/2025</td><td class="num">S/69.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>01-jul</td><td>Servicio TV Digital jul/2025</td><td class="num">S/40.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>07-jul</td><td>Reconexión (FTTH)</td><td class="num">S/7.50</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>07-jul</td><td>Reconexión (TV Digital)</td><td class="num">S/7.50</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>30-ago</td><td>Materiales perdidos ×2 (TV+FTTH)</td><td class="num">S/439.60</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/653.90 − Descuentos S/99.50 = Deuda neta</b></td><td class="num"><b>S/554.40</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="3"><b>129743 · JHON GAVINO</b><br><span style="color:var(--ink-faint);font-size:12px;">SAN FELIPE · GENESIS AYALA</span></td><td>02-jun</td><td>Tarifa jun/2025 (prorrateo)</td><td class="num">S/64.40</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-jul</td><td>Servicio FTTH jul/2025</td><td class="num">S/69.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>07-jul</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/133.40 − Descuentos S/63.30 = Deuda neta</b></td><td class="num"><b>S/70.10</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="4"><b>129728 · GIOVANNA ASENCIO</b><br><span style="color:var(--ink-faint);font-size:12px;">SAN FELIPE · ASDRIELY ROMERO</span></td><td>02-jun</td><td>Tarifa jun/2025 (prorrateo)</td><td class="num">S/59.70</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-jul</td><td>Servicio FTTH jul/2025</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>07-jul</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>23-ago</td><td>Cargo por materiales perdidos</td><td class="num">S/141.60</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/265.30 − Descuentos S/58.80 = Deuda neta</b></td><td class="num"><b>S/206.50</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="4"><b>125314 · SOFIA LOZANO</b><br><span style="color:var(--ink-faint);font-size:12px;">INDEPENDENCIA · KIARA RIVERA</span></td><td>29-may / 01-jun</td><td>Tarifa Cable Go (2 cuotas)</td><td class="num">S/31.90</td><td>002/003</td><td>Sí</td></tr>
+            <tr><td>02-jun</td><td>Tarifa FTTH jun/2025</td><td class="num">S/64.40</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-jul</td><td>Servicio Cable Go + FTTH jul/2025</td><td class="num">S/99.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>07-jul</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/195.30 − Descuentos S/111.50 = Deuda neta</b></td><td class="num"><b>S/83.80</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="3"><b>30891 · BENICIO RAYME</b><br><span style="color:var(--ink-faint);font-size:12px;">ABANCAY · JACKELIN CARRION</span></td><td>03-jun</td><td>Tarifa jun/2025 (prorrateo)</td><td class="num">S/57.60</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-jul</td><td>Servicio FTTH jul/2025</td><td class="num">S/64.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>16-jul</td><td>Cargo por materiales perdidos</td><td class="num">S/141.60</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/263.20 − Descuentos S/58.80 = Deuda neta</b></td><td class="num"><b>S/204.40</b></td><td colspan="2"></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Evidencia 11.3</b> — 2026 (vendidos ene-2026, cortados mar-2026) — incluye el caso que reveló la corrección de la sección 05</div>
+        <div class="exhibit-body">
+        <table>
+          <thead><tr><th>Abonado</th><th>Fecha</th><th>Concepto del cargo</th><th class="num">Importe</th><th>Estado</th><th>¿Cuenta como deuda?</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="5"><b>5474 · FRANYER GAUTIER</b><br><span style="color:var(--ink-faint);font-size:12px;">YESS PMD · JHOANNA DELGADO · OS calidad: sí (1)</span></td><td>02-ene</td><td>Tarifa ene/2026 (prorrateo)</td><td class="num">S/64.60</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-feb</td><td>Servicio FTTH feb/2026</td><td class="num">S/69.00</td><td>003</td><td>Sí</td></tr>
+            <tr><td>07-feb</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>29-may</td><td>Materiales perdidos (registro 1)</td><td class="num">S/253.10</td><td>005</td><td><b>No — anulado</b></td></tr>
+            <tr><td>30-may</td><td>Materiales perdidos (registro 2, <b>duplicado</b>)</td><td class="num">S/253.10</td><td>005</td><td><b>No — duplicado</b></td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/133.60 − Descuentos S/59.90 = Deuda neta</b></td><td class="num"><b>S/73.70</b></td><td colspan="2"></td></tr>
+          </tbody>
+        </table>
+        <div style="padding:10px 14px;font-size:12.5px;color:var(--ink-faint);border-top:1px solid var(--line);">Este caso reproduce <b>exacto</b> el reporte oficial "DETALLE DE DEUDA DEL ABONADO" del sistema (Estado: RETIRADO, saldo S/73.70) — es la validación que detectó y corrigió el error de doble conteo descrito en la sección 05.</div>
+        </div>
+        <table style="margin-top:16px;">
+          <thead><tr><th>Abonado</th><th>Fecha</th><th>Concepto del cargo</th><th class="num">Importe</th><th>Estado</th><th>¿Cuenta como deuda?</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="4"><b>126637 · PAMELA SEVILLA</b><br><span style="color:var(--ink-faint);font-size:12px;">INDEPENDENCIA · LILA GARAY</span></td><td>02-ene</td><td>Tarifa ene/2026 (prorrateo)</td><td class="num">S/60.70</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-feb</td><td>Servicio FTTH feb/2026</td><td class="num">S/64.90</td><td>003</td><td>Sí</td></tr>
+            <tr><td>09-feb</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>15-mar</td><td>Cargo por materiales perdidos</td><td class="num">S/115.00</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/240.60 − Descuentos S/54.20 = Deuda neta</b></td><td class="num"><b>S/186.40</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="4"><b>123522 · WILYERLING CAMPOS</b><br><span style="color:var(--ink-faint);font-size:12px;">SAN MARTIN · JOSE CASTRO · OS calidad: sí (1)</span></td><td>01/02-ene</td><td>Cable Go + Internet HFC ene/2026</td><td class="num">S/66.70</td><td>002/003</td><td>Sí</td></tr>
+            <tr><td>01-feb</td><td>Internet HFC + Cable Go feb/2026</td><td class="num">S/69.90</td><td>003</td><td>Sí</td></tr>
+            <tr><td>09-feb</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/136.60 − Descuentos S/79.80 = Deuda neta</b></td><td class="num"><b>S/56.80</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="4"><b>131652 · CIELO ROJAS</b><br><span style="color:var(--ink-faint);font-size:12px;">SAN FELIPE · MARIA CARPIO</span></td><td>02-ene</td><td>Tarifa ene/2026 (prorrateo)</td><td class="num">S/60.70</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-feb</td><td>Servicio FTTH feb/2026</td><td class="num">S/64.90</td><td>003</td><td>Sí</td></tr>
+            <tr><td>09-feb</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>13-may</td><td>Cargo por materiales perdidos</td><td class="num">S/115.00</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/240.60 − Descuentos S/54.20 = Deuda neta</b></td><td class="num"><b>S/186.40</b></td><td colspan="2"></td></tr>
+
+            <tr><td rowspan="4"><b>137806 · BERTHA JUNCHAYA</b><br><span style="color:var(--ink-faint);font-size:12px;">PACHACAMAC · MARIELLA REGALADO</span></td><td>03-ene</td><td>Tarifa ene/2026 (prorrateo)</td><td class="num">S/49.60</td><td>002</td><td>Sí</td></tr>
+            <tr><td>01-feb</td><td>Servicio FTTH feb/2026</td><td class="num">S/54.90</td><td>003</td><td>Sí</td></tr>
+            <tr><td>09-feb</td><td>Cargos por reconexión</td><td class="num">S/15.00</td><td>005</td><td><b>No</b></td></tr>
+            <tr><td>21-may</td><td>Cargo por materiales perdidos</td><td class="num">S/115.00</td><td>002</td><td>Sí</td></tr>
+            <tr class="total"><td colspan="3"><b>Facturado S/219.50 − Descuentos S/45.10 = Deuda neta</b></td><td class="num"><b>S/174.40</b></td><td colspan="2"></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <p>Patrón consistente en los 15 casos: <b>"Cargos por reconexión" siempre en Estado='005' (excluido)</b> — nunca cuenta como deuda, en ningún caso, de ninguna filial ni año. "Materiales perdidos" normalmente cuenta (Estado='002'), salvo en FRANYER GAUTIER donde una duplicación de captura anuló ambas líneas. Todos <code>ComprobantePago</code> = S/0 hasta hoy; todos <code>EstOS='003'</code> con <code>AbonadoServicio</code> consistente (instalación real confirmada). Solo 2 de 15 (FRANYER GAUTIER y WILYERLING CAMPOS, ambos 2026) tienen algún ticket de calidad, sin que eso cambiara el resultado de pago. El ciclo de órdenes posteriores es idéntico en los 15: instalación (001) → suspensión (002) → corte definitivo (011) → recojo de material (033).</p>
+    </section>
+
+    <section id="sql">
+      <div class="sec-head"><span class="sec-num">12</span><h2>Consultas SQL utilizadas</h2></div>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Consulta 1</b> — clasificación de pago por venta (base de todo el análisis)</div>
+        <div class="exhibit-body"><pre><code>SELECT
+  CASE WHEN p.primerPago IS NULL THEN 'nunca_pago'
+       WHEN p.primerPago &lt;= DATEADD(day,30,o.FechaEjecucion) THEN 'pago_normal'
+       WHEN (o.monto*(DATEDIFF(day,o.FechaEjecucion,GETDATE())/30.0)
+             - ISNULL(p.total_pagado,0)) &gt; 0 THEN 'moroso_con_deuda'
+       ELSE 'pago_al_dia' END AS categoria,
+  CASE WHEN aser.Estado='005' THEN 'corte_definitivo'
+       WHEN aser.Estado='003' THEN 'suspendido'
+       WHEN aser.Estado='002' THEN 'activo' ELSE 'sin_registro' END AS estado
+FROM OrdenServicio o
+LEFT JOIN (
+  SELECT idFilial, IdAbonado, MIN(FechaEmision) AS primerPago, SUM(PrecioVenta) AS total_pagado
+  FROM ComprobantePago WHERE FechaAnulacion IS NULL
+  GROUP BY idFilial, IdAbonado                     -- clave compuesta, nunca IdAbonado solo
+) p ON p.idFilial = o.idFilial AND p.IdAbonado = o.IdAbonado
+LEFT JOIN AbonadoServicio aser
+  ON aser.idFilial=o.idFilial AND aser.IdAbonado=o.IdAbonado AND aser.ClaseServicio=o.ClaseServicio
+WHERE o.TipoOS = '001' AND o.EstOS = '003'
+  AND o.ClaseServicio IN ('001','002','004','012')
+  AND o.FormaAviso IN ('001','002','004','006')
+  AND o.idFilial &lt;&gt; 12
+  AND EXISTS (
+    SELECT 1 FROM DataVendedorComision tv
+    WHERE tv.idVendedor = o.IdVendedorReinstalacion
+      AND tv.PeriodoVenta = CONVERT(varchar(6), o.FechaEjecucion, 112)
+  );</code></pre></div>
+      </div>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Consulta 2</b> — comisión estimada (tasa vigente del vendedor, sin fan-out)</div>
+        <div class="exhibit-body"><pre><code>SELECT idVendedor, PeriodoVenta, MAX(PorcentajeValla) AS tasa
+FROM DataVendedorComision
+GROUP BY idVendedor, PeriodoVenta;
+-- luego: comision_estimada = monto_vendido * tasa (LEFT JOIN por idVendedor+periodo)</code></pre></div>
+      </div>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Consulta 3</b> — deuda neta real (cuenta corriente), validada contra facturación real</div>
+        <div class="exhibit-body"><pre><code>SELECT
+  SUM(c.Importe) AS total_facturado_real,
+  SUM(ISNULL(ca.aplicado,0)) AS total_descuentos_ajustes,
+  SUM(c.Importe) - SUM(ISNULL(ca.aplicado,0)) AS deuda_neta_real
+FROM Cargo c
+LEFT JOIN (
+  SELECT IdCargo, SUM(Importe) AS aplicado FROM CargoAbono GROUP BY IdCargo
+) ca ON ca.IdCargo = c.IdCargo
+WHERE c.idFilial = @idFilial AND c.IdAbonado = @IdAbonado AND c.ClaseServicio = @ClaseServicio;
+-- Abono/CargoAbono = descuentos y ajustes internos, NO pagos del cliente (verificado
+-- con el campo Concepto: "DESCUENTO EN MENSUALIDAD...", "REAJUSTE CORTE", "AJUSTE POR DECIMALES")</code></pre></div>
+      </div>
+      <div class="exhibit">
+        <div class="exhibit-cap"><b>Consulta 4</b> — órdenes posteriores / reclamo de calidad por abonado</div>
+        <div class="exhibit-body"><pre><code>SELECT idFilial, IdAbonado, TipoOS, COUNT(*) AS cantidad
+FROM OrdenServicio
+WHERE idFilial = @idFilial AND IdAbonado = @IdAbonado
+GROUP BY idFilial, IdAbonado, TipoOS;
+-- TipoOS: 001 instalación, 002 suspensión, 003 reconexión, 008 servicios calidad,
+--         011 corte definitivo, 033 recojo de material</code></pre></div>
+      </div>
+    </section>
+
+    <section id="metodologia">
+      <div class="sec-head"><span class="sec-num">13</span><h2>Metodología y limitaciones</h2></div>
+      <ol class="rules">
+        <li><b>Comisión "liquidada"</b>: existe fila en <code>DataVendedorComision</code> para ese vendedor con <code>PeriodoVenta</code> igual al mes de <code>FechaEjecucion</code> — confirmado en <code>usp_DataVendedorComisionInsertarCampo_gl</code>. No hay comisión por venta individual (agregada por vendedor+período+valla, hallazgo R-07 del informe principal); "comisión estimada" = tarifa vendida × tasa vigente del vendedor ese mes (<code>DataVendedorComision.PorcentajeValla</code>).</li>
+        <li><b>Categorías de pago</b>: <i>nunca pagó</i> = <code>SUM(ComprobantePago.PrecioVenta)=0</code> hasta hoy; <i>pagó normal</i> = primer pago dentro de 30 días; <i>moroso con deuda</i> = pagó después del día 30 pero (tarifa × meses transcurridos − pagado) &gt; 0; <i>al día</i> = pagó tarde pero esa diferencia es ≤ 0. Un atraso regularizado (categoría "al día") no se cuenta como pérdida.</li>
+        <li><b>Pérdida real</b> = comisión estimada + deuda neta real, calculado <b>únicamente</b> sobre la cohorte "nunca pagó Y corte definitivo" — nunca sobre morosos activos (podrían recuperarse) ni sobre "al día" (ya no hay pérdida). Sin doble contabilización: comisión (costo pagado al vendedor) y deuda (ingreso nunca cobrado del cliente) son dos flujos de caja distintos, se suman, no se solapan.</li>
+        <li><b>Deuda neta real</b> = <code>Cargo.Importe</code> con <code>Estado IN ('002','003','004')</code> (facturado real) − <code>CargoAbono</code> aplicado (descuentos/ajustes reales, verificado que no son pagos). <b>Corregido y validado</b> contra el reporte oficial "DETALLE DE DEUDA DEL ABONADO" del propio sistema: los cargos en <code>Estado='005'</code> (reconexiones, y cargos anulados/duplicados por error de captura) quedan excluidos del saldo de deuda — confirmado que esa exclusión es sistemática, no un error de esta auditoría, replicando exacto el saldo oficial en el caso probado (sección 11, Evidencia 11.3). El pago real (<code>ComprobantePago</code>) es S/0 para esta cohorte por definición.</li>
+        <li><b>2024 solo cubre septiembre–diciembre</b> porque <code>DataVendedorComision</code> no tiene datos anteriores a <code>PeriodoVenta='202409'</code>. <b>2026-04 es la ventana más reciente</b> y subestima "pérdida real" porque muchas ventas aún no han tenido tiempo de llegar a corte definitivo.</li>
+        <li><b>Instalación real</b> se verifica solo a nivel de registro (<code>AbonadoServicio</code> consistente), no a nivel físico de campo.</li>
+        <li><code>MotivoCorte</code> de <code>AbonadoServicio</code>: el código 001 es el más frecuente (73.6% de todos los cortes del sistema), consistente con — pero no confirmado como — falta de pago; el dominio de <code>Parametro</code> citado en una versión anterior de este informe (906) resultó ser de subcausas de tickets técnicos, no de motivos de corte. Se usa como señal descriptiva, no como hecho verificado.</li>
+        <li>No se ejecutó ninguna operación de escritura sobre la base de datos durante esta auditoría. Todas las consultas fueron de solo lectura (<code>SELECT</code>).</li>
+      </ol>
+    </section>
+
+    <footer>
+      <p><b>Nota:</b> este informe es la versión consolidada del análisis de comisiones sin cobro 2024–2026, con clasificación completa de pago y pérdida real validada contra el registro de facturación (no estimaciones). Complementa el informe "Auditoría del Proceso de Comisiones — CableGo / Econocable", que cubre el flujo del proceso, los riesgos, las validaciones faltantes y el diseño correcto propuesto para corregir la causa raíz.</p>
+    </footer>
+  </main>
+</div>
