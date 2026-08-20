@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      Estas versiones se escribieron sin conexión a NuGet.org (este entorno no
+      tiene salida a NuGet). Antes del primer build, ejecuta en el servidor:
+        dotnet add package ModelContextProtocol.AspNetCore --prerelease
+        dotnet add package Microsoft.Data.SqlClient
+      "dotnet add" sobrescribirá estas líneas con la última versión real
+      publicada. Ver README.md, sección "Primer build".
+    -->
+    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.2.0-preview.3" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+  </ItemGroup>
+
+</Project>
